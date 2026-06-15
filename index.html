@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0D0E10" />
+  <title>ShopVoice — Ask your repair data. Out loud.</title>
+  <meta name="description" content="ShopVoice is a live demo of voice access to shop reference data: trouble codes, torque specs, and repair procedures, answered hands-free." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script type="module">
+    import Vapi from "https://esm.sh/@vapi-ai/web";
+    window.VapiSDK = Vapi;
+    window.dispatchEvent(new Event("vapi-sdk-ready"));
+  </script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0D0E10;
+      --surface: #15171A;
+      --surface-2: #1C1F23;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --text: #F2F3F4;
+      --muted: rgba(255, 255, 255, 0.64);
+      --subtle: rgba(255, 255, 255, 0.42);
+      --accent: #F02D2D;
+      --accent-hover: #FF4747;
+      --accent-tint: rgba(240, 45, 45, 0.12);
+      --on-accent: #FFFFFF;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: "Inter", system-ui, -apple-system, sans-serif;
+      --radius: 8px;
+      --tracking-caps: 0.09em;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+    /* ---------- Header ---------- */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(13, 14, 16, 0.86);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .wordmark {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 15px;
+      letter-spacing: var(--tracking-caps);
+      text-transform: uppercase;
+    }
+    .wordmark .vc { color: var(--accent); }
+    .wordmark .brand-logo { height: 33px; width: auto; display: block; }
+    .header-tag {
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--subtle);
+      border: 1px solid var(--border);
+      padding: 4px 9px; border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* ---------- Section scaffolding ---------- */
+    section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+    .kicker {
+      display: flex; align-items: baseline; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .kicker .num {
+      font-family: var(--mono); font-size: 12px;
+      color: var(--accent); font-weight: 500;
+    }
+    .kicker .label {
+      font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: var(--tracking-caps);
+      color: var(--subtle);
+    }
+
+    /* ---------- Panel 1: Demo ---------- */
+    #demo { padding-top: 56px; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr; gap: 40px;
+    }
+    @media (min-width: 880px) {
+      .hero-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: start; }
+    }
+    h1 {
+      font-size: clamp(2.1rem, 5.5vw, 3.1rem);
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      font-weight: 700;
+      margin: 0 0 16px;
+      text-wrap: balance;
+    }
+    .lede {
+      font-size: 17px; color: var(--muted);
+      margin: 0 0 32px; max-width: 46ch;
+      text-wrap: pretty;
+    }
+    .lede strong { color: var(--text); font-weight: 600; }
+
+    .mic-row { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; }
+    .mic-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--accent); color: var(--on-accent);
+      border: none; border-radius: var(--radius);
+      font-family: var(--sans); font-size: 16px; font-weight: 600;
+      letter-spacing: 0.01em;
+      padding: 16px 26px; cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .mic-btn:hover { background: var(--accent-hover); }
+    .mic-btn:active { transform: scale(0.98); }
+    .mic-btn svg { width: 19px; height: 19px; flex: none; }
+    .mic-btn.live { background: var(--surface-2); border: 1px solid var(--accent); color: var(--text); }
+    .mic-btn.live .pulse {
+      width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: 0.45; transform: scale(0.78);} }
+    .mic-status {
+      font-family: var(--mono); font-size: 12px; color: var(--subtle);
+      min-height: 18px; margin-bottom: 26px; letter-spacing: 0.01em;
+    }
+    .mic-status.error { color: var(--accent-hover); }
+
+    .try-label {
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: var(--tracking-caps); color: var(--subtle);
+      margin-bottom: 10px;
+    }
+    .chips { display: flex; flex-direction: column; gap: 8px; }
+    .chip {
+      text-align: left;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 11px 14px;
+      font-family: var(--sans); font-size: 14px; color: var(--muted);
+      cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease;
+      line-height: 1.4;
+    }
+    .chip:hover { border-color: var(--border-strong); color: var(--text); }
+    .chip .q { color: var(--subtle); font-family: var(--mono); font-size: 11px; margin-right: 8px; }
+
+    /* ---------- Transcript readout ---------- */
+    .readout {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      display: flex; flex-direction: column;
+      min-height: 380px;
+    }
+    .readout-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 16px; border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .readout-title {
+      font-family: var(--mono); font-size: 11px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: var(--tracking-caps);
+      color: var(--subtle);
+    }
+    .readout-state { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 11px; color: var(--subtle); }
+    .state-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--subtle); }
+    .readout.live .state-dot { background: var(--accent); animation: pulse 1.4s ease-in-out infinite; }
+    .readout.live .readout-state { color: var(--text); }
+
+    .readout-lines {
+      flex: 1; padding: 18px 16px; overflow-y: auto; max-height: 430px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .readout-empty {
+      margin: auto; text-align: center; color: var(--subtle);
+      font-size: 14px; max-width: 30ch; line-height: 1.6;
+    }
+    .readout-empty .mono { font-family: var(--mono); font-size: 12px; display: block; margin-top: 8px; }
+    .line { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .line .who {
+      font-family: var(--mono); font-size: 10px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: var(--tracking-caps);
+    }
+    .line.user .who { color: var(--subtle); }
+    .line.assistant .who { color: var(--text); }
+    .line .said { font-size: 14.5px; line-height: 1.55; color: var(--muted); overflow-wrap: break-word; }
+    .line.assistant .said { color: var(--text); }
+    .toolcall {
+      display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      align-self: flex-start;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.02em;
+      color: var(--muted);
+      background: var(--accent-tint);
+      border: 1px solid rgba(240, 45, 45, 0.35);
+      border-radius: 6px; padding: 6px 10px;
+    }
+    .toolcall .tc-verb { color: var(--accent-hover); font-weight: 500; }
+    .toolcall .tc-sep { color: var(--subtle); }
+
+    /* ---------- Panel 2: Text-it phone simulation ---------- */
+    h2 {
+      font-size: clamp(1.5rem, 3.4vw, 2rem);
+      line-height: 1.15; letter-spacing: -0.02em;
+      font-weight: 700; margin: 0 0 12px;
+      text-wrap: balance;
+    }
+    .section-sub { font-size: 15.5px; color: var(--muted); margin: 0 0 32px; text-wrap: pretty; }
+    .text-head { max-width: 56ch; }
+    .text-grid { display: grid; grid-template-columns: 1fr; gap: 44px; align-items: center; }
+    @media (min-width: 880px) { .text-grid { grid-template-columns: minmax(0,1fr) auto; gap: 60px; } }
+    .text-copy .section-sub { margin-bottom: 0; }
+    .text-points { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-direction: column; gap: 13px; }
+    .text-points li { display: flex; gap: 11px; font-size: 14.5px; color: var(--muted); text-wrap: pretty; }
+    .text-points .tick { color: var(--accent); font-family: var(--mono); flex: none; }
+
+    /* phone frame */
+    .phone {
+      width: 332px; max-width: 100%; margin: 0 auto; flex: none;
+      background: #08090b; border: 1px solid var(--border-strong);
+      border-radius: 42px; padding: 12px;
+      box-shadow: 0 32px 64px -24px rgba(0,0,0,0.75), inset 0 0 0 2px rgba(255,255,255,0.02);
+    }
+    .phone-screen { background: var(--bg); border-radius: 31px; overflow: hidden; display: flex; flex-direction: column; height: 616px; }
+    .phone-bar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 16px 12px; border-bottom: 1px solid var(--border); background: var(--surface);
+    }
+    .phone-bar .avatar {
+      width: 32px; height: 32px; border-radius: 50%; flex: none;
+      background: var(--accent-tint); border: 1px solid rgba(240,45,45,0.4);
+      display: grid; place-items: center; color: var(--accent);
+      font-family: var(--mono); font-size: 11px; font-weight: 600;
+    }
+    .phone-bar .pb-name { font-size: 14px; font-weight: 600; line-height: 1.2; }
+    .phone-bar .pb-sub { font-family: var(--mono); font-size: 10px; color: var(--subtle); letter-spacing: 0.02em; }
+
+    .chat { flex: 1; overflow-y: auto; padding: 18px 13px; display: flex; flex-direction: column; gap: 9px; scroll-behavior: smooth; }
+    .chat-hint { margin: auto; text-align: center; color: var(--subtle); font-size: 13px; max-width: 24ch; line-height: 1.55; }
+    .bubble { max-width: 84%; padding: 9px 13px; border-radius: 17px; font-size: 14px; line-height: 1.45; overflow-wrap: break-word; animation: pop .18s ease-out; }
+    .bubble.user { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 5px; }
+    .bubble.bot { align-self: flex-start; background: var(--surface-2); color: var(--text); border-bottom-left-radius: 5px; }
+    .bubble-cite { align-self: flex-start; max-width: 86%; font-family: var(--mono); font-size: 10.5px; line-height: 1.45; color: var(--subtle); padding: 1px 4px 0; animation: pop .18s ease-out; }
+    @keyframes pop { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+    .sys-lookup {
+      align-self: center; display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--accent-hover); background: var(--accent-tint);
+      border: 1px solid rgba(240,45,45,0.3); border-radius: 999px; padding: 4px 11px; animation: pop .18s ease-out;
+    }
+    .sys-lookup .vdot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+    .typing { align-self: flex-start; background: var(--surface-2); border-radius: 17px; border-bottom-left-radius: 5px; padding: 11px 14px; display: inline-flex; gap: 4px; animation: pop .18s ease-out; }
+    .typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--subtle); animation: blink 1.2s infinite both; }
+    .typing span:nth-child(2) { animation-delay: .2s; }
+    .typing span:nth-child(3) { animation-delay: .4s; }
+    @keyframes blink { 0%,80%,100% { opacity: .25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-2px); } }
+
+    .phone-tray { border-top: 1px solid var(--border); background: var(--surface); padding: 12px 12px 14px; }
+    .tray-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-hover); margin: 0 2px 9px; }
+    .tray-chips { display: flex; flex-direction: column; gap: 7px; }
+    .tray-chip {
+      text-align: left; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 9px 12px; color: var(--muted);
+      font-family: var(--sans); font-size: 13px; cursor: pointer; line-height: 1.35;
+      transition: border-color .15s, color .15s, opacity .15s;
+    }
+    .tray-chip:hover:not(:disabled) { border-color: var(--accent); color: var(--text); }
+    .tray-chip:disabled { opacity: .4; cursor: default; }
+    .tray-chip .q { color: var(--subtle); font-family: var(--mono); font-size: 10px; margin-right: 7px; }
+
+    /* ---------- Panel 3: Where this fits ---------- */
+    .fit-rows { border-top: 1px solid var(--border); }
+    .fit-row {
+      display: grid; grid-template-columns: 1fr; gap: 10px;
+      padding: 26px 0; border-bottom: 1px solid var(--border);
+    }
+    @media (min-width: 880px) {
+      .fit-row { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 40px; }
+    }
+    .fit-name { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 6px; }
+    .fit-name .idx { font-family: var(--mono); font-size: 12px; color: var(--accent); font-weight: 500; margin-right: 10px; }
+    .fit-why { font-size: 14.5px; color: var(--muted); margin: 0; max-width: 58ch; text-wrap: pretty; }
+    .fit-owner { align-self: start; }
+    @media (min-width: 880px) { .fit-owner { text-align: right; } }
+    .fit-owner .routes {
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: var(--tracking-caps); color: var(--subtle);
+      display: block; margin-bottom: 4px;
+    }
+    .fit-owner .owner { font-size: 14px; color: var(--text); font-weight: 500; }
+    .fit-note {
+      margin-top: 28px; font-size: 14.5px; color: var(--muted);
+      max-width: 62ch; text-wrap: pretty;
+    }
+    .fit-note strong { color: var(--text); font-weight: 600; }
+
+    /* ---------- Footer ---------- */
+    footer { padding: 36px 0 56px; }
+    .footer-inner {
+      display: flex; flex-wrap: wrap; gap: 8px 24px;
+      align-items: baseline; justify-content: space-between;
+      font-size: 13px; color: var(--subtle);
+    }
+    .footer-inner a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border-strong); }
+    .footer-inner a:hover { color: var(--text); }
+    .footer-demo-note { font-family: var(--mono); font-size: 11px; letter-spacing: 0.01em; }
+
+    /* ---------- Product tabs ---------- */
+    .tabs {
+      display: flex; gap: 3px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 999px; padding: 3px;
+    }
+    .tab {
+      border: none; background: transparent; cursor: pointer;
+      font-family: var(--sans); font-weight: 600; font-size: 12.5px;
+      letter-spacing: 0.01em; color: var(--subtle);
+      padding: 6px 14px; border-radius: 999px;
+      transition: color 0.15s ease, background 0.15s ease;
+      white-space: nowrap;
+    }
+    .tab:hover:not(.active) { color: var(--text); }
+    .tab.active { background: var(--accent); color: var(--on-accent); }
+
+    /* ---------- Product views ---------- */
+    .view { display: none; }
+    .view.active { display: block; }
+    .view > section:first-of-type { padding-top: 56px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap header-inner">
+      <div class="wordmark" id="wordmark"><span class="brand-name">Elgin Auto</span><span class="brand-name">Shop<span class="vc">Voice</span></span></div>
+      <div class="tabs" role="tablist">
+        <button class="tab active" id="tab-shopvoice" role="tab" onclick="showView('shopvoice')">ShopVoice</button>
+        <button class="tab" id="tab-invan" role="tab" onclick="showView('invan')">Operating System Co-Pilot</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ================================================================ -->
+    <!-- ============ PRODUCT 1 · SHOPVOICE =============================== -->
+    <!-- ================================================================ -->
+    <div class="view active" id="view-shopvoice">
+
+      <!-- ============ 01 · LIVE DEMO ============ -->
+      <section id="demo">
+        <div class="kicker"><span class="num">01</span><span class="label">Live demo</span></div>
+        <div class="hero-grid">
+          <div>
+            <h1>Automotive service manuals you can talk to.</h1>
+            <p class="lede">A tech under a car can't type. ShopVoice answers <strong>trouble codes, torque specs, and procedures</strong> from the shop's own reference data — spoken, in seconds, gloves on.</p>
+
+            <div class="mic-row">
+              <button id="sv-callBtn" class="mic-btn" onclick="toggleCall('shopvoice')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                <span>Tap to talk</span>
+              </button>
+            </div>
+            <div id="sv-callStatus" class="mic-status"></div>
+
+            <div class="try-label">Try asking</div>
+            <div class="chips">
+              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"What's the torque spec for the caliper bracket bolts on a 2019 F-150?"</button>
+              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"I've got a P0420 on a 2017 Silverado — what's the most likely real fix?"</button>
+              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Walk me through the crank relearn after replacing the sensor."</button>
+            </div>
+          </div>
+
+          <div class="readout" id="sv-readout">
+            <div class="readout-bar">
+              <span class="readout-title">Live transcript</span>
+              <span class="readout-state"><span class="state-dot"></span><span id="sv-stateLabel">standby</span></span>
+            </div>
+            <div class="readout-lines" id="sv-lines">
+              <div class="readout-empty">
+                Tap to talk, allow the mic, and ask a question.
+                <span class="mono">Every lookup it runs shows here.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 02 · WATCH IT WORK ============ -->
+      <section id="sv-proof">
+        <div class="kicker"><span class="num">02</span><span class="label">Watch it work</span></div>
+        <div class="text-grid">
+          <div class="text-copy">
+            <div class="text-head">
+              <h2>Too noisy to talk? Text it instead.</h2>
+              <p class="section-sub">Same shop reference data, as a chat on your phone. <strong>Tap a question</strong> and watch the answer come back, no crawling out from under the car to look it up.</p>
+            </div>
+            <ul class="text-points">
+              <li><span class="tick">→</span><span>Every answer comes from the shop's reference data, with the database it came from.</span></li>
+              <li><span class="tick">→</span><span>Ask something outside the demo corpus and it says so instead of guessing.</span></li>
+              <li><span class="tick">→</span><span>Voice when your hands are full, text when they're not. Same source of truth.</span></li>
+            </ul>
+          </div>
+
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="phone-bar">
+                <div class="avatar">SV</div>
+                <div>
+                  <div class="pb-name">ShopVoice</div>
+                  <div class="pb-sub">Shop reference data</div>
+                </div>
+              </div>
+              <div class="chat" id="sv-chatThread">
+                <div class="chat-hint" id="sv-chatHint">Tap a question below to text the shop data.</div>
+              </div>
+              <div class="phone-tray">
+                <div class="tray-label">Tap to send a text</div>
+                <div class="tray-chips" id="sv-trayChips">
+                  <button class="tray-chip" onclick="sendSim('shopvoice', 0)"><span class="q">Q</span>What's the real fix for a P0420 on a 2017 Silverado?</button>
+                  <button class="tray-chip" onclick="sendSim('shopvoice', 1)"><span class="q">Q</span>Caliper bracket bolt torque on a 2019 F-150?</button>
+                  <button class="tray-chip" onclick="sendSim('shopvoice', 2)"><span class="q">Q</span>Crank relearn after replacing the sensor?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 03 · WHERE THIS FITS ============ -->
+      <section id="sv-fit">
+        <div class="kicker"><span class="num">03</span><span class="label">Where this fits</span></div>
+        <h2>Three places this lands inside Snap-on</h2>
+        <p class="section-sub">The demo runs on a small stand-in corpus. The pattern — voice in, verified data out — maps onto corpora Snap-on already owns.</p>
+
+        <div class="fit-rows">
+          <div class="fit-row">
+            <div>
+              <h3 class="fit-name"><span class="idx">A</span>Voice layer on ProDemand / SureTrack</h3>
+              <p class="fit-why">The highest-value target. SureTrack's billion-record corpus of verified real fixes is exactly what techs would ask for by voice — the demo's ranked "real fix" answers are a miniature of it.</p>
+            </div>
+            <div class="fit-owner">
+              <span class="routes">Routes to</span>
+              <span class="owner">Mitchell 1 / Repair Systems &amp; Information</span>
+            </div>
+          </div>
+          <div class="fit-row">
+            <div>
+              <h3 class="fit-name"><span class="idx">B</span>Hands-free assist on diagnostic platforms</h3>
+              <p class="fit-why">Zeus, Verus, and Verdict already integrate SureTrack. A tech under the car asking the handheld a question — instead of crawling out to tap through it — is a natural product extension.</p>
+            </div>
+            <div class="fit-owner">
+              <span class="routes">Routes to</span>
+              <span class="owner">Diagnostics hardware / software group</span>
+            </div>
+          </div>
+          <div class="fit-row">
+            <div>
+              <h3 class="fit-name"><span class="idx">C</span>Franchisee receive-and-lookup line</h3>
+              <p class="fit-why">The simpler beachhead: a phone line franchisees and their customers call for instant spec and procedure lookups. Smallest build, fastest pilot, proves the pattern in the field.</p>
+            </div>
+            <div class="fit-owner">
+              <span class="routes">Routes to</span>
+              <span class="owner">Tools / franchise systems</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="fit-note"><strong>Why this travels:</strong> the demo corpus is ~30 codes, 40 specs, and 6 procedures. Nothing about the architecture changes at a billion records — the corpus is a plug-in, the voice layer is the product.</p>
+      </section>
+
+    </div><!-- /view-shopvoice -->
+
+    <!-- ================================================================ -->
+    <!-- ============ PRODUCT 2 · IN-VAN CO-PILOT ======================== -->
+    <!-- ================================================================ -->
+    <div class="view" id="view-invan">
+
+      <!-- ============ 01 · LIVE DEMO ============ -->
+      <section id="invan-demo" class="demo-section">
+        <div class="kicker"><span class="num">01</span><span class="label">Live demo</span></div>
+        <div class="hero-grid">
+          <div>
+            <h1>Talk to your business. While you're on the go.</h1>
+            <p class="lede">A small-business owner-operator runs the whole operation from the field, not a desk. The Operating System Co-Pilot answers from their <strong>own customers, balances, orders, and inventory</strong>, spoken aloud so they can keep working with their hands free.</p>
+
+            <div class="mic-row">
+              <button id="iv-callBtn" class="mic-btn" onclick="toggleCall('invan')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                <span>Tap to talk</span>
+              </button>
+            </div>
+            <div id="iv-callStatus" class="mic-status"></div>
+
+            <div class="try-label">Try asking</div>
+            <div class="chips">
+              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"What's the story on my next job, the Calloway account?"</button>
+              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"Do I have the replacement unit in stock right now?"</button>
+              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"Special order the larger unit for Sarah, follow up next Tuesday."</button>
+            </div>
+          </div>
+
+          <div class="readout" id="iv-readout">
+            <div class="readout-bar">
+              <span class="readout-title">Live transcript</span>
+              <span class="readout-state"><span class="state-dot"></span><span id="iv-stateLabel">standby</span></span>
+            </div>
+            <div class="readout-lines" id="iv-lines">
+              <div class="readout-empty">
+                Tap to talk, allow the mic, and ask for a briefing.
+                <span class="mono">Every record it pulls shows here.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 02 · WATCH IT WORK ============ -->
+      <section id="iv-proof">
+        <div class="kicker"><span class="num">02</span><span class="label">Watch it work</span></div>
+        <div class="text-grid">
+          <div class="text-copy">
+            <div class="text-head">
+              <h2>Never sitting at a desk? Text your business instead.</h2>
+              <p class="section-sub">Same business data, as a chat on your phone. <strong>Tap a question</strong> and watch it pull from your own records, no app to tap through.</p>
+            </div>
+            <ul class="text-points">
+              <li><span class="tick">→</span><span>Every answer comes from the operator's own records, with the source it came from.</span></li>
+              <li><span class="tick">→</span><span>Ask about something it doesn't have and it says so instead of inventing a number.</span></li>
+              <li><span class="tick">→</span><span>Voice while you drive, text when you're stopped. Same source of truth.</span></li>
+            </ul>
+          </div>
+
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="phone-bar">
+                <div class="avatar">OS</div>
+                <div>
+                  <div class="pb-name">Operating System Co-Pilot</div>
+                  <div class="pb-sub">Your business data</div>
+                </div>
+              </div>
+              <div class="chat" id="iv-chatThread">
+                <div class="chat-hint" id="iv-chatHint">Tap a question below to text your business.</div>
+              </div>
+              <div class="phone-tray">
+                <div class="tray-label">Tap to send a text</div>
+                <div class="tray-chips" id="iv-trayChips">
+                  <button class="tray-chip" onclick="sendSim('invan', 0)"><span class="q">Q</span>What's the story on my next job, the Calloway account?</button>
+                  <button class="tray-chip" onclick="sendSim('invan', 1)"><span class="q">Q</span>Do I have the replacement unit in stock?</button>
+                  <button class="tray-chip" onclick="sendSim('invan', 2)"><span class="q">Q</span>Special order the larger unit for Sarah, follow up Tuesday.</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 03 · WHERE THIS FITS ============ -->
+      <section id="iv-fit">
+        <div class="kicker"><span class="num">03</span><span class="label">Where this fits</span></div>
+        <h2>Where the Co-Pilot lands</h2>
+        <p class="section-sub">The demo runs on a small stand-in slice of one operator's data. The pattern, voice in and the operator's own records out, maps onto the systems any owner-operator business already runs.</p>
+
+        <div class="fit-rows">
+          <div class="fit-row">
+            <div>
+              <h3 class="fit-name"><span class="idx">A</span>Voice layer on your system of record</h3>
+              <p class="fit-why">The highest-value target. Your customers, balances, jobs, and inventory already live in whatever you run the business on, a CRM, a field-service app, point-of-sale, even a spreadsheet. The Co-Pilot reads and writes through it as a voice layer. It doesn't replace your system of record.</p>
+            </div>
+            <div class="fit-owner">
+              <span class="routes">Routes to</span>
+              <span class="owner">Your CRM / business software</span>
+            </div>
+          </div>
+          <div class="fit-row">
+            <div>
+              <h3 class="fit-name"><span class="idx">B</span>Call-catching line for when you can't pick up</h3>
+              <p class="fit-why">When a customer calls and you're on a job, behind the wheel, or off the clock, the Co-Pilot catches the contact, captures what they need, and books the follow-up. Work that would otherwise be lost gets recovered.</p>
+            </div>
+            <div class="fit-owner">
+              <span class="routes">Routes to</span>
+              <span class="owner">Telephony / contact capture</span>
+            </div>
+          </div>
+          <div class="fit-row">
+            <div>
+              <h3 class="fit-name"><span class="idx">C</span>Coordinating a small crew</h3>
+              <p class="fit-why">For owners running a few trucks, techs, or helpers: notes and orders captured against a specific job or person, plus light oversight across the team, without anyone stopping to tap through a screen.</p>
+            </div>
+            <div class="fit-owner">
+              <span class="routes">Routes to</span>
+              <span class="owner">Multi-person operators</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /view-invan -->
+
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>A working demo by Ian Pilon · <a href="mailto:ianpilon@gmail.com">ianpilon@gmail.com</a></span>
+      <span class="footer-demo-note">demo data only · not affiliated with Snap-on Inc.</span>
+    </div>
+  </footer>
+
+  <script>
+    // One Vapi account (public key) drives both products; each product is a
+    // separate assistant with its own tools, system prompt, and DOM.
+    const VAPI_PUBLIC_KEY = "c7d496d8-e4fb-44fe-9ffe-755d41ae32c3";
+
+    const MIC_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>';
+
+    const APPS = {
+      shopvoice: {
+        key: "shopvoice",
+        wordmark: '<span class="brand-name">Elgin Auto</span><span class="brand-name">Shop<span class="vc">Voice</span></span>',
+        speaker: "ShopVoice",
+        userLabel: "Tech",
+        assistantId: "383bdcd9-cd6c-4840-a9fb-505bb64daf27",
+        toolLabels: {
+          lookup_dtc: "DTC DATABASE",
+          lookup_spec: "SPEC DATABASE",
+          search_procedures: "PROCEDURE LIBRARY"
+        },
+        ids: {
+          callBtn: "sv-callBtn", callStatus: "sv-callStatus",
+          readout: "sv-readout", stateLabel: "sv-stateLabel", lines: "sv-lines",
+          proof: "sv-proof", chatThread: "sv-chatThread",
+          chatHint: "sv-chatHint", trayChips: "sv-trayChips"
+        },
+        sims: [
+          { q: "What's the real fix for a P0420 on a 2017 Silverado?",
+            lookup: "DTC database",
+            a: "P0420 is catalyst efficiency below threshold, bank 1. Most common verified fix is the bank 1 catalytic converter — but check fuel trims and misfires first. A new cat fails again if the upstream cause survives.",
+            cite: "Source: DTC database · P0420, ranked verified fixes." },
+          { q: "Caliper bracket bolt torque on a 2019 F-150?",
+            lookup: "Spec database",
+            a: "184 ft-lb on the bracket bolts. Guide pins are 27 ft-lb. Clean the threads — no thread locker needed per the manual.",
+            cite: "Source: Spec database · 2019 F-150 front brakes." },
+          { q: "Crank relearn after replacing the sensor?",
+            lookup: "Procedure library",
+            a: "Most Fords self-learn the crank profile on decel fuel cut: 40 to 60 mph, throttle off, coast in gear 10 seconds, repeat 3 to 5 times. No scan tool unless a P0315 sticks around.",
+            cite: "Source: Procedure library · crank relearn." }
+        ],
+        simBusy: false, simStarted: false
+      },
+      invan: {
+        key: "invan",
+        wordmark: '<span class="brand-name">Elgin Auto</span><span class="brand-name">Operating System <span class="vc">Co-Pilot</span></span>',
+        speaker: "Co-Pilot",
+        userLabel: "Operator",
+        assistantId: "4da59ae1-e4a3-4b7d-9a4f-f2a7788218a5",
+        toolLabels: {
+          pre_stop_briefing: "CUSTOMER RECORDS",
+          inventory_check: "VAN INVENTORY",
+          capture_order: "ORDER CAPTURE"
+        },
+        ids: {
+          callBtn: "iv-callBtn", callStatus: "iv-callStatus",
+          readout: "iv-readout", stateLabel: "iv-stateLabel", lines: "iv-lines",
+          proof: "iv-proof", chatThread: "iv-chatThread",
+          chatHint: "iv-chatHint", trayChips: "iv-trayChips"
+        },
+        sims: [
+          { q: "What's the story on my next job, the Calloway account?",
+            lookup: "Customer records",
+            a: "Two open items at Calloway. Sarah Calloway owes $1,240, 18 days past due, and there's an approved quote waiting on your sign-off. Last visit she asked about the larger unit. Your other contact there, Dave Kowalski, is paid up.",
+            cite: "Source: Customer records · Calloway account." },
+          { q: "Do I have the replacement unit in stock?",
+            lookup: "Inventory",
+            a: "Three in stock, on the shelf. You're good to fit one for Sarah on the spot.",
+            cite: "Source: Inventory · current on-hand count." },
+          { q: "Special order the larger unit for Sarah, follow up next Tuesday.",
+            lookup: "Order capture",
+            a: "Logged: special order, larger unit for Sarah Calloway, follow up next Tuesday. Saved to your follow-ups.",
+            cite: "Source: Order capture · written to follow-ups." }
+        ],
+        simBusy: false, simStarted: false
+      }
+    };
+
+    function el(id) { return document.getElementById(id); }
+
+    // ---- Tab / view switching ----
+    let currentView = "invan";
+
+    function showView(key) {
+      if (key === currentView) return;
+      // A live call belongs to the view you were on — end it when you leave.
+      if (callState === "active" || callState === "connecting") vapi?.stop();
+      currentView = key;
+
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      el("view-" + key).classList.add("active");
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      el("tab-" + key).classList.add("active");
+      el("wordmark").innerHTML = APPS[key].wordmark;
+
+      window.scrollTo({ top: 0, behavior: "auto" });
+      maybeAutoSim(APPS[key]);
+    }
+
+    // ---- Vapi web call (single instance, one active call at a time) ----
+    let vapi = null;
+    let callState = "idle"; // idle | connecting | active | ended
+    let activeApp = null;
+
+    function ensureVapiReady() {
+      if (window.VapiSDK) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error("Voice SDK failed to load — check your connection")), 15000);
+        window.addEventListener("vapi-sdk-ready", () => { clearTimeout(timer); resolve(); }, { once: true });
+      });
+    }
+
+    function initVapi() {
+      if (vapi) return vapi;
+      vapi = new window.VapiSDK(VAPI_PUBLIC_KEY);
+
+      vapi.on("call-start", () => { callState = "active"; updateCallUI(); });
+      vapi.on("call-end", () => {
+        callState = "ended"; updateCallUI();
+        setTimeout(() => { if (callState === "ended") { callState = "idle"; updateCallUI(); } }, 4000);
+      });
+      vapi.on("error", (err) => {
+        console.error("Vapi error:", err);
+        if (activeApp) showCallError(activeApp, err?.message || err?.error?.message || "Call error — see console");
+        callState = "idle"; updateCallUI();
+      });
+      vapi.on("message", (msg) => {
+        const app = activeApp;
+        if (!app) return;
+        if (msg?.type === "transcript" && msg?.transcriptType === "final" && msg?.transcript) {
+          addLine(app, app.ids.lines, msg.role === "user" ? "user" : "assistant", msg.transcript);
+        }
+        // Tool-call visibility: the proof that answers come from data, not vibes.
+        if (msg?.type === "tool-calls" || msg?.type === "function-call") {
+          const calls = msg.toolCalls || msg.toolCallList || (msg.functionCall ? [{ function: msg.functionCall }] : []);
+          calls.forEach(tc => {
+            const fn = tc?.function?.name || tc?.name;
+            if (!fn) return;
+            let arg = tc?.function?.arguments || tc?.parameters || {};
+            if (typeof arg === "string") { try { arg = JSON.parse(arg); } catch (e) { arg = {}; } }
+            const detail = arg.code || arg.query || arg.stop || arg.item || arg.action || arg.customer || "";
+            addToolCall(app, app.ids.lines, fn, detail);
+          });
+        }
+      });
+
+      return vapi;
+    }
+
+    async function toggleCall(key) {
+      const app = APPS[key];
+      if (callState === "active") { vapi?.stop(); return; }
+      if (callState === "connecting") return;
+
+      if (!app.assistantId || app.assistantId.includes("PLACEHOLDER")) {
+        showCallError(app, "Voice not wired up yet — run configure-invan-system.js, then paste the assistant ID into APPS.invan.assistantId.");
+        return;
+      }
+
+      activeApp = app;
+      callState = "connecting"; updateCallUI();
+      clearLines(app.ids.lines);
+      try {
+        await ensureVapiReady();
+        initVapi();
+        await vapi.start(app.assistantId);
+      } catch (err) {
+        console.error(err);
+        showCallError(app, err?.message || "Failed to start the call");
+        callState = "idle"; updateCallUI();
+      }
+    }
+
+    function chipTap(key) {
+      if (callState === "idle" || callState === "ended") toggleCall(key);
+      el(key === "invan" ? "invan-demo" : "demo").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function setBtn(app, className, inner) {
+      const btn = el(app.ids.callBtn);
+      btn.className = className;
+      btn.innerHTML = inner;
+    }
+
+    function updateCallUI() {
+      const app = activeApp;
+      if (!app) return;
+      const status = el(app.ids.callStatus);
+      const readout = el(app.ids.readout);
+      const stateLabel = el(app.ids.stateLabel);
+      status.classList.remove("error");
+
+      if (callState === "idle") {
+        setBtn(app, "mic-btn", MIC_SVG + "<span>Tap to talk</span>");
+        status.textContent = "";
+        readout.classList.remove("live"); stateLabel.textContent = "standby";
+      } else if (callState === "connecting") {
+        setBtn(app, "mic-btn", MIC_SVG + "<span>Connecting…</span>");
+        status.textContent = "Asking for mic permission — first call can take ~30s while the backend wakes.";
+        readout.classList.remove("live"); stateLabel.textContent = "connecting…";
+      } else if (callState === "active") {
+        setBtn(app, "mic-btn live", '<span class="pulse"></span><span>Listening — tap to end</span>');
+        status.textContent = "Connected. Speak normally — headphones help with echo.";
+        readout.classList.add("live"); stateLabel.textContent = "live";
+      } else if (callState === "ended") {
+        setBtn(app, "mic-btn", MIC_SVG + "<span>Call ended — tap to restart</span>");
+        status.textContent = "";
+        readout.classList.remove("live"); stateLabel.textContent = "standby";
+      }
+    }
+
+    function showCallError(app, msg) {
+      const status = el(app.ids.callStatus);
+      status.classList.add("error");
+      status.textContent = msg;
+    }
+
+    // ---- Shared transcript rendering ----
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+
+    function clearEmpty(containerId) {
+      const empty = el(containerId).querySelector(".readout-empty");
+      if (empty) empty.remove();
+    }
+
+    function addLine(app, containerId, role, text) {
+      clearEmpty(containerId);
+      const lines = el(containerId);
+      const line = document.createElement("div");
+      line.className = "line " + role;
+      const who = role === "user" ? app.userLabel : app.speaker;
+      line.innerHTML = `<span class="who">${escapeHtml(who)}</span><span class="said">${escapeHtml(text)}</span>`;
+      lines.appendChild(line);
+      lines.scrollTop = lines.scrollHeight;
+      return line;
+    }
+
+    function addToolCall(app, containerId, fnName, detail) {
+      clearEmpty(containerId);
+      const lines = el(containerId);
+      const box = document.createElement("div");
+      box.className = "toolcall";
+      const db = app.toolLabels[fnName] || fnName.toUpperCase();
+      box.innerHTML = `<span class="tc-verb">LOOKUP</span><span class="tc-sep">·</span><span>${escapeHtml(db)}</span>` +
+        (detail ? `<span class="tc-sep">·</span><span>${escapeHtml(String(detail).toUpperCase())}</span>` : "");
+      lines.appendChild(box);
+      lines.scrollTop = lines.scrollHeight;
+    }
+
+    function clearLines(containerId) {
+      el(containerId).innerHTML = "";
+    }
+
+    // ---- Panel 2: phone-chat simulation (scripted, mirrors the live answers) ----
+    function simAppend(app, html) {
+      const c = el(app.ids.chatThread);
+      const wrap = document.createElement("div");
+      wrap.style.display = "contents";
+      wrap.innerHTML = html;
+      const node = wrap.firstElementChild;
+      c.appendChild(node);
+      c.scrollTop = c.scrollHeight;
+      return node;
+    }
+
+    function setTrayDisabled(app, on) {
+      document.querySelectorAll(`#${app.ids.trayChips} .tray-chip`).forEach(b => { b.disabled = on; });
+    }
+
+    function sendSim(key, i) {
+      const app = APPS[key];
+      if (app.simBusy) return;
+      app.simBusy = true;
+      app.simStarted = true;
+      setTrayDisabled(app, true);
+      const hint = el(app.ids.chatHint);
+      if (hint) hint.remove();
+      const s = app.sims[i];
+
+      simAppend(app, `<div class="bubble user">${escapeHtml(s.q)}</div>`);
+      setTimeout(() => simAppend(app, `<div class="sys-lookup"><span class="vdot"></span>Verified lookup · ${escapeHtml(s.lookup)}</div>`), 500);
+      let typing;
+      setTimeout(() => { typing = simAppend(app, `<div class="typing"><span></span><span></span><span></span></div>`); }, 850);
+      setTimeout(() => {
+        if (typing) typing.remove();
+        simAppend(app, `<div class="bubble bot">${escapeHtml(s.a)}</div>`);
+        simAppend(app, `<div class="bubble-cite">${escapeHtml(s.cite)}</div>`);
+        app.simBusy = false;
+        setTrayDisabled(app, false);
+      }, 2050);
+    }
+
+    // Auto-play a product's first question the first time its section is visible.
+    function maybeAutoSim(app) {
+      if (app.simStarted) return;
+      const section = el(app.ids.proof);
+      if (!section) return;
+      if ("IntersectionObserver" in window) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting && !app.simStarted) { setTimeout(() => sendSim(app.key, 0), 400); obs.disconnect(); }
+          });
+        }, { threshold: 0.35 });
+        obs.observe(section);
+      } else {
+        sendSim(app.key, 0);
+      }
+    }
+
+    // Wire up the default (visible) view's simulation on load.
+    maybeAutoSim(APPS.shopvoice);
+
+    window.showView = showView;
+    window.toggleCall = toggleCall;
+    window.chipTap = chipTap;
+    window.sendSim = sendSim;
+  </script>
+</body>
+</html>

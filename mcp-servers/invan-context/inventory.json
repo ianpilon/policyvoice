@@ -1,0 +1,18 @@
+{
+  "inventory": [
+    { "item": "3/8 drive torque wrench", "category": "torque", "on_van": 2, "location": "Drawer B4", "min": 1 },
+    { "item": "1/2 inch drive torque wrench", "category": "torque", "on_van": 0, "location": "Drawer B4", "min": 1 },
+    { "item": "1/2 inch impact wrench, 18V brushless", "category": "power", "on_van": 1, "location": "Top shelf, left", "min": 2 },
+    { "item": "3/8 air ratchet", "category": "power", "on_van": 0, "location": "Top shelf, left", "min": 1 },
+    { "item": "18V brushless ratchet", "category": "power", "on_van": 3, "location": "Top shelf, right", "min": 1 },
+    { "item": "KRA roll cab, candy apple red", "category": "storage", "on_van": 0, "location": "Rear rack", "min": 0 },
+    { "item": "screwdriver set, 8 piece", "category": "hand", "on_van": 5, "location": "Drawer C1", "min": 2 },
+    { "item": "metric combination wrench set", "category": "hand", "on_van": 4, "location": "Drawer C2", "min": 2 },
+    { "item": "3/4 inch breaker bar", "category": "hand", "on_van": 1, "location": "Drawer D1", "min": 1 },
+    { "item": "1 inch drive socket set, metric", "category": "sockets", "on_van": 0, "location": "Drawer D3", "min": 1 },
+    { "item": "diagnostic scan tool", "category": "diagnostics", "on_van": 1, "location": "Cab, passenger seat", "min": 1 },
+    { "item": "heavy duty creeper", "category": "shop", "on_van": 2, "location": "Rear rack", "min": 1 },
+    { "item": "LED work light, rechargeable", "category": "shop", "on_van": 6, "location": "Drawer A2", "min": 3 },
+    { "item": "pry bar set, 4 piece", "category": "hand", "on_van": 2, "location": "Drawer D1", "min": 1 }
+  ]
+}

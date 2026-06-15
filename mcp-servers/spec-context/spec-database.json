@@ -1,0 +1,51 @@
+{
+  "specs": [
+    { "vehicle": "2015-2020 Ford F-150", "engine": "all", "component": "Wheel lug nuts", "spec": "150 lb-ft (204 Nm)", "notes": "Torque in a star pattern. Re-torque after 50 miles if wheels were removed hot." },
+    { "vehicle": "2015-2020 Ford F-150", "engine": "all", "component": "Front brake caliper bracket bolts", "spec": "184 lb-ft (250 Nm)", "notes": "Clean threads before install. New bolts not required per service manual." },
+    { "vehicle": "2015-2020 Ford F-150", "engine": "all", "component": "Front brake caliper guide pin bolts", "spec": "27 lb-ft (37 Nm)", "notes": "Lubricate guide pins with silicone brake grease." },
+    { "vehicle": "2015-2020 Ford F-150", "engine": "5.0L V8", "component": "Spark plugs", "spec": "11 lb-ft (15 Nm)", "notes": "Gap 0.049 in. Anti-seize not recommended on factory-coated plugs." },
+    { "vehicle": "2015-2020 Ford F-150", "engine": "3.5L EcoBoost", "component": "Spark plugs", "spec": "10 lb-ft (13 Nm)", "notes": "Gap 0.028-0.031 in. Replace at 60k under severe service (towing)." },
+    { "vehicle": "2015-2020 Ford F-150", "engine": "5.0L V8", "component": "Engine oil capacity", "spec": "8.8 quarts (8.3 L) with filter", "notes": "5W-20 synthetic blend minimum. Motorcraft FL-500S filter." },
+    { "vehicle": "2015-2020 Ford F-150", "engine": "3.5L EcoBoost", "component": "Engine oil capacity", "spec": "6.0 quarts (5.7 L) with filter", "notes": "5W-30 full synthetic." },
+    { "vehicle": "2015-2020 Ford F-150", "engine": "all", "component": "Front hub/bearing assembly bolts", "spec": "148 lb-ft (200 Nm)", "notes": "4WD axle nut: 22 lb-ft + back off + 16 lb-ft final, see procedure." },
+
+    { "vehicle": "2014-2019 Chevrolet Silverado 1500", "engine": "all", "component": "Wheel lug nuts", "spec": "140 lb-ft (190 Nm)", "notes": "Star pattern. Cone-seat nuts; do not lubricate studs." },
+    { "vehicle": "2014-2019 Chevrolet Silverado 1500", "engine": "all", "component": "Front brake caliper bracket bolts", "spec": "129 lb-ft (175 Nm)", "notes": "Apply threadlocker (blue) per service manual." },
+    { "vehicle": "2014-2019 Chevrolet Silverado 1500", "engine": "all", "component": "Front brake caliper guide pin bolts", "spec": "59 lb-ft (80 Nm)", "notes": "" },
+    { "vehicle": "2014-2019 Chevrolet Silverado 1500", "engine": "5.3L V8", "component": "Spark plugs", "spec": "15 lb-ft (20 Nm)", "notes": "Gap 0.040 in. AC Delco 41-114 or equivalent iridium." },
+    { "vehicle": "2014-2019 Chevrolet Silverado 1500", "engine": "5.3L V8", "component": "Engine oil capacity", "spec": "8.0 quarts (7.6 L) with filter", "notes": "0W-20 dexos1 full synthetic." },
+    { "vehicle": "2014-2019 Chevrolet Silverado 1500", "engine": "5.3L V8", "component": "Knock sensors", "spec": "15 lb-ft (20 Nm)", "notes": "Under intake manifold on Gen IV; torque-critical — do not overtighten, skews sensor response." },
+    { "vehicle": "2014-2019 Chevrolet Silverado 1500", "engine": "all", "component": "Front hub/bearing assembly bolts", "spec": "133 lb-ft (180 Nm)", "notes": "" },
+
+    { "vehicle": "2018-2023 Toyota Camry", "engine": "all", "component": "Wheel lug nuts", "spec": "76 lb-ft (103 Nm)", "notes": "Star pattern. Aluminum wheels: re-torque after 50 miles." },
+    { "vehicle": "2018-2023 Toyota Camry", "engine": "all", "component": "Front brake caliper bracket bolts", "spec": "79 lb-ft (107 Nm)", "notes": "" },
+    { "vehicle": "2018-2023 Toyota Camry", "engine": "all", "component": "Front brake caliper guide pin bolts", "spec": "25 lb-ft (34 Nm)", "notes": "" },
+    { "vehicle": "2018-2023 Toyota Camry", "engine": "2.5L A25A-FKS", "component": "Spark plugs", "spec": "13 lb-ft (18 Nm)", "notes": "Gap 0.031 in. Denso iridium, 120k interval." },
+    { "vehicle": "2018-2023 Toyota Camry", "engine": "2.5L A25A-FKS", "component": "Engine oil capacity", "spec": "4.8 quarts (4.5 L) with filter", "notes": "0W-16 full synthetic (0W-20 acceptable alternative)." },
+    { "vehicle": "2018-2023 Toyota Camry", "engine": "all", "component": "Engine oil drain plug", "spec": "30 lb-ft (41 Nm)", "notes": "New aluminum crush washer every service." },
+
+    { "vehicle": "2016-2021 Honda Civic", "engine": "all", "component": "Wheel lug nuts", "spec": "80 lb-ft (108 Nm)", "notes": "Star pattern. Do not impact past spec — warps rotors on these hubs." },
+    { "vehicle": "2016-2021 Honda Civic", "engine": "all", "component": "Front brake caliper bracket bolts", "spec": "80 lb-ft (108 Nm)", "notes": "" },
+    { "vehicle": "2016-2021 Honda Civic", "engine": "all", "component": "Front brake caliper guide pin bolts", "spec": "20 lb-ft (27 Nm)", "notes": "" },
+    { "vehicle": "2016-2021 Honda Civic", "engine": "1.5L turbo L15B7", "component": "Spark plugs", "spec": "13 lb-ft (18 Nm)", "notes": "Gap 0.028 in. Watch for oil dilution history on 2016-2018 — short-trip cars foul plugs early." },
+    { "vehicle": "2016-2021 Honda Civic", "engine": "1.5L turbo L15B7", "component": "Engine oil capacity", "spec": "3.7 quarts (3.5 L) with filter", "notes": "0W-20 full synthetic." },
+    { "vehicle": "2016-2021 Honda Civic", "engine": "all", "component": "Engine oil drain plug", "spec": "30 lb-ft (41 Nm)", "notes": "New crush washer every service." },
+    { "vehicle": "2016-2021 Honda Civic", "engine": "all", "component": "Front axle (spindle) nut", "spec": "242 lb-ft (328 Nm)", "notes": "Stake the nut after torquing. Never reuse a staked nut." },
+
+    { "vehicle": "2014-2018 RAM 1500", "engine": "all", "component": "Wheel lug nuts", "spec": "130 lb-ft (176 Nm)", "notes": "Star pattern, two passes." },
+    { "vehicle": "2014-2018 RAM 1500", "engine": "all", "component": "Front brake caliper bracket bolts", "spec": "130 lb-ft (176 Nm)", "notes": "" },
+    { "vehicle": "2014-2018 RAM 1500", "engine": "all", "component": "Front brake caliper guide pin bolts", "spec": "24 lb-ft (32 Nm)", "notes": "" },
+    { "vehicle": "2014-2018 RAM 1500", "engine": "5.7L HEMI", "component": "Spark plugs", "spec": "13 lb-ft (18 Nm)", "notes": "Gap 0.043 in. 16 plugs total — two per cylinder." },
+    { "vehicle": "2014-2018 RAM 1500", "engine": "5.7L HEMI", "component": "Engine oil capacity", "spec": "7.0 quarts (6.6 L) with filter", "notes": "5W-20 full synthetic; MDS requires correct viscosity." },
+    { "vehicle": "2014-2018 RAM 1500", "engine": "3.6L Pentastar", "component": "Engine oil capacity", "spec": "5.9 quarts (5.6 L) with filter", "notes": "5W-20. Cartridge filter — torque cap to 25 lb-ft." },
+    { "vehicle": "2014-2018 RAM 1500", "engine": "all", "component": "Front hub/bearing assembly bolts", "spec": "120 lb-ft (163 Nm)", "notes": "4WD axle nut: 132 lb-ft (179 Nm), vehicle on the ground." },
+
+    { "vehicle": "2017-2022 Ford F-250/F-350 Super Duty", "engine": "all", "component": "Wheel lug nuts", "spec": "165 lb-ft (224 Nm)", "notes": "Re-torque after 50-100 miles is a service requirement on these trucks, not a suggestion." },
+    { "vehicle": "2017-2022 Ford F-250/F-350 Super Duty", "engine": "6.7L Power Stroke", "component": "Engine oil capacity", "spec": "13.0 quarts (12.3 L) with filter", "notes": "10W-30 CK-4 for normal climate; 5W-40 for cold or biodiesel over B5." },
+    { "vehicle": "2017-2022 Ford F-250/F-350 Super Duty", "engine": "6.7L Power Stroke", "component": "Fuel filter set torque", "spec": "Hand-tight + 1/4 turn (both filters)", "notes": "Two filters: chassis-mounted and engine-mounted. Replace as a set, every 15k." },
+
+    { "vehicle": "2013-2018 Toyota RAV4", "engine": "all", "component": "Wheel lug nuts", "spec": "76 lb-ft (103 Nm)", "notes": "" },
+    { "vehicle": "2013-2018 Toyota RAV4", "engine": "2.5L 2AR-FE", "component": "Engine oil capacity", "spec": "4.6 quarts (4.4 L) with filter", "notes": "0W-20. Cartridge filter cap: 18 lb-ft with new O-ring." },
+    { "vehicle": "2013-2018 Toyota RAV4", "engine": "all", "component": "Front brake caliper guide pin bolts", "spec": "25 lb-ft (34 Nm)", "notes": "" }
+  ]
+}
