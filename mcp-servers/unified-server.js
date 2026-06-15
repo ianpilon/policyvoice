@@ -27,176 +27,166 @@ function vapiResult(res, toolCallId, result, status = 200) {
 }
 
 // ============================================
-// DTC (DIAGNOSTIC TROUBLE CODE) FUNCTIONALITY
+// POLICY COVERAGE CLAUSE LOOKUP (voice-as-read, verbatim)
 // ============================================
 
-const DTC_DB_PATH = path.join(__dirname, 'dtc-context/dtc-database.json');
+const POLICY_DB_PATH = path.join(__dirname, 'policy-context/policy-database.json');
 
-function loadDtcDB() {
-  if (fs.existsSync(DTC_DB_PATH)) {
-    return JSON.parse(fs.readFileSync(DTC_DB_PATH, 'utf8'));
+function loadPolicyDB() {
+  if (fs.existsSync(POLICY_DB_PATH)) {
+    return JSON.parse(fs.readFileSync(POLICY_DB_PATH, 'utf8'));
   }
-  return { dtcs: [] };
+  return { clauses: [] };
 }
 
-let dtcDB = loadDtcDB();
+let policyDB = loadPolicyDB();
 
-// Normalize spoken/typed forms: "p0420", "P 0420", "P oh four twenty" (LLM usually
-// passes digits, but handle "P420" by re-inserting the dropped leading zero).
-function normalizeCode(s) {
-  let code = String(s || '').toUpperCase()
-    .replace(/\bOH\b/g, '0')
-    .replace(/\bZERO\b/g, '0')
-    .replace(/[^A-Z0-9]/g, '');
-  const short = code.match(/^([PBCU])(\d{3})$/);
-  if (short) code = `${short[1]}0${short[2]}`;
-  return code;
-}
+// Keyword-scored match across topic + keywords. Returns the single best clause so
+// the agent reads ONE provision verbatim rather than splicing several together.
+function findClause(topic) {
+  const q = String(topic || '').toLowerCase();
+  const words = q.split(/\s+/).filter(w => w.length > 2);
+  if (!words.length) return null;
 
-function findDtc(code) {
-  const target = normalizeCode(code);
-  if (!target) return null;
-
-  let dtc = dtcDB.dtcs.find(d => normalizeCode(d.code) === target);
-  if (dtc) return dtc;
-
-  // Digits-only fallback: "0420" or "420"
-  const digits = target.replace(/[^0-9]/g, '');
-  if (digits) {
-    dtc = dtcDB.dtcs.find(d => d.code.replace(/[^0-9]/g, '') === digits.padStart(4, '0'));
-    if (dtc) return dtc;
+  let best = null, bestScore = 0;
+  for (const c of policyDB.clauses) {
+    let score = 0;
+    const topicLower = c.topic.toLowerCase();
+    const kws = (c.keywords || []).map(k => k.toLowerCase());
+    words.forEach(w => {
+      if (topicLower.includes(w)) score += 4;
+      if (kws.some(k => k.includes(w) || w.includes(k))) score += 5;
+    });
+    if (score > bestScore) { bestScore = score; best = c; }
   }
-
-  return null;
+  return bestScore > 0 ? best : null;
 }
 
-function describeDtc(d) {
-  const fixes = d.real_fixes
-    .map((f, i) => `${i + 1}. ${f.fix} (${f.frequency})`)
-    .join(' ');
-  return `${d.code} is ${d.name} — ${d.system} system, ${d.severity} severity. ${d.description} ` +
-    `Common causes: ${d.common_causes.join('; ')}. ` +
-    `Verified fixes ranked by frequency: ${fixes} ` +
-    `Tech note: ${d.tech_notes}`;
+// Read the clause WORD FOR WORD with its citation. No interpretation, no coverage call.
+function describeClause(c) {
+  let out = `Reading from ${c.form}, ${c.section}, page ${c.page}. Quote: ${c.verbatim} End quote.`;
+  if (c.endorsement_note) out += ` Endorsement note: ${c.endorsement_note}`;
+  out += ` That is the wording as written. I am not making the coverage call.`;
+  return out;
 }
 
-app.post('/lookup-dtc', (req, res) => {
+app.post('/lookup-coverage', (req, res) => {
   console.log('\n📥 Full request body:', JSON.stringify(req.body, null, 2));
 
   const toolCallId = extractToolCallId(req.body);
-  const code = extractArg(req.body, 'code');
+  const topic = extractArg(req.body, 'topic');
 
-  console.log(`\n🔧 DTC lookup: "${code}"`);
+  console.log(`\n📖 Coverage lookup: "${topic}"`);
   console.log(`   Tool Call ID: ${toolCallId}`);
 
-  if (!code) {
-    console.log('❌ No code found in request body');
-    return vapiResult(res, toolCallId, 'Error: code parameter is required', 400);
+  if (!topic) {
+    console.log('❌ No topic found in request body');
+    return vapiResult(res, toolCallId, 'Error: topic parameter is required', 400);
   }
 
-  const dtc = findDtc(code);
+  const clause = findClause(topic);
 
-  if (!dtc) {
+  if (!clause) {
     console.log('   ❌ Not found');
     return vapiResult(res, toolCallId,
-      `I don't have ${code} in this demo database. It covers about thirty of the most common powertrain, EVAP, network, and chassis codes.`);
+      `I don't have a clause on that in this demo policy library. It covers mold and fungi, wind-driven rain, water and sewer backup, anti-concurrent causation, hurricane deductible, loss of use, ordinance or law, matching and pair or set, and duties after loss.`);
   }
 
-  console.log(`   ✅ Found: ${dtc.code} (${dtc.name})`);
-  return vapiResult(res, toolCallId, describeDtc(dtc));
+  console.log(`   ✅ Found clause: ${clause.topic}`);
+  return vapiResult(res, toolCallId, describeClause(clause));
 });
 
 // ============================================
-// TORQUE / FLUID SPEC FUNCTIONALITY
+// ENDORSEMENT (ADD-ON) LOOKUP (voice-as-read, verbatim)
 // ============================================
 
-const SPEC_DB_PATH = path.join(__dirname, 'spec-context/spec-database.json');
+const ENDORSEMENT_DB_PATH = path.join(__dirname, 'endorsement-context/endorsement-database.json');
 
-function loadSpecDB() {
-  if (fs.existsSync(SPEC_DB_PATH)) {
-    return JSON.parse(fs.readFileSync(SPEC_DB_PATH, 'utf8'));
+function loadEndorsementDB() {
+  if (fs.existsSync(ENDORSEMENT_DB_PATH)) {
+    return JSON.parse(fs.readFileSync(ENDORSEMENT_DB_PATH, 'utf8'));
   }
-  return { specs: [] };
+  return { endorsements: [] };
 }
 
-let specDB = loadSpecDB();
+let endorsementDB = loadEndorsementDB();
 
-function searchSpecs(query) {
+function searchEndorsements(query) {
   const queryLower = query.toLowerCase();
   const keywords = queryLower.split(/\s+/).filter(word => word.length > 2);
 
-  const results = specDB.specs.map(spec => {
+  const results = endorsementDB.endorsements.map(e => {
     let score = 0;
-    const vehicle = spec.vehicle.toLowerCase();
-    const engine = (spec.engine || '').toLowerCase();
-    const component = spec.component.toLowerCase();
+    const name = e.name.toLowerCase();
+    const form = (e.form || '').toLowerCase();
+    const kws = (e.keywords || []).map(k => k.toLowerCase());
 
     keywords.forEach(keyword => {
-      if (vehicle.includes(keyword)) score += 5;
-      if (engine.includes(keyword)) score += 4;
-      if (component.includes(keyword)) score += 6;
-      if ((spec.notes || '').toLowerCase().includes(keyword)) score += 1;
+      if (name.includes(keyword)) score += 5;
+      if (form.includes(keyword)) score += 4;
+      if (kws.some(k => k.includes(keyword) || keyword.includes(k))) score += 6;
     });
 
-    return { ...spec, score };
+    return { ...e, score };
   })
   .filter(s => s.score > 0)
   .sort((a, b) => b.score - a.score)
-  .slice(0, 4);
+  .slice(0, 2);
 
   return results;
 }
 
-function describeSpec(s) {
-  let line = `${s.vehicle}${s.engine && s.engine !== 'all' ? ` (${s.engine})` : ''} — ${s.component}: ${s.spec}.`;
-  if (s.notes) line += ` ${s.notes}`;
-  return line;
+// Read the endorsement WORD FOR WORD and flag how it modifies the base form.
+function describeEndorsement(e) {
+  let out = `Endorsement ${e.name}, form ${e.form}, page ${e.page}. Quote: ${e.verbatim} End quote.`;
+  if (e.modifies) out += ` How it changes the base policy: ${e.modifies}`;
+  return out;
 }
 
-app.post('/lookup-spec', (req, res) => {
-  console.log('\n📥 Spec lookup request:', JSON.stringify(req.body, null, 2));
+app.post('/lookup-endorsement', (req, res) => {
+  console.log('\n📥 Endorsement lookup request:', JSON.stringify(req.body, null, 2));
 
   const toolCallId = extractToolCallId(req.body);
   const query = extractArg(req.body, 'query');
 
-  console.log(`\n🔩 Spec lookup: "${query}"`);
+  console.log(`\n📎 Endorsement lookup: "${query}"`);
   console.log(`   Tool Call ID: ${toolCallId}`);
 
   if (!query) {
     return vapiResult(res, toolCallId, 'Error: query parameter is required', 400);
   }
 
-  const results = searchSpecs(query);
+  const results = searchEndorsements(query);
 
   if (results.length === 0) {
     return vapiResult(res, toolCallId,
-      'No spec found for that vehicle and component in this demo database. It covers common torque specs and fluid capacities for F-150, Silverado, Camry, Civic, RAM 1500, Super Duty, and RAV4.');
+      'No endorsement on that in this demo library. It covers water back-up and sump overflow, roof surfacing cosmetic damage, roof surfacing actual cash value, ordinance or law increased amount, limited fungi or mold, and windstorm or hail percentage deductible.');
   }
 
-  console.log(`   ✅ Found ${results.length} specs`);
-  return vapiResult(res, toolCallId, results.map(describeSpec).join(' '));
+  console.log(`   ✅ Found ${results.length} endorsements`);
+  return vapiResult(res, toolCallId, results.map(describeEndorsement).join(' '));
 });
 
 // ============================================
-// REPAIR PROCEDURE SEARCH FUNCTIONALITY
+// POLICY FORM DOCUMENT SEARCH (voice-as-read over full forms)
 // ============================================
 
-const PROCEDURE_DOCS_PATH = path.join(__dirname, 'procedures-rag');
+const POLICY_FORMS_PATH = path.join(__dirname, 'policy-forms');
 let documents = [];
 
 function loadDocuments() {
   try {
-    if (!fs.existsSync(PROCEDURE_DOCS_PATH)) {
-      console.log(`⚠️  Procedure docs directory not found: ${PROCEDURE_DOCS_PATH}`);
+    if (!fs.existsSync(POLICY_FORMS_PATH)) {
+      console.log(`⚠️  Policy forms directory not found: ${POLICY_FORMS_PATH}`);
       return;
     }
 
-    const files = fs.readdirSync(PROCEDURE_DOCS_PATH);
+    const files = fs.readdirSync(POLICY_FORMS_PATH);
     documents = [];
 
     files.forEach(file => {
       if (file.endsWith('.txt') || file.endsWith('.md')) {
-        const content = fs.readFileSync(path.join(PROCEDURE_DOCS_PATH, file), 'utf8');
+        const content = fs.readFileSync(path.join(POLICY_FORMS_PATH, file), 'utf8');
 
         // Split on ## headers to create clean section boundaries
         const sections = content.split(/(?=##\s)/g).filter(section => section.trim().length > 0);
@@ -262,13 +252,13 @@ function searchDocuments(query) {
   return results;
 }
 
-app.post('/search-procedures', (req, res) => {
+app.post('/search-policy', (req, res) => {
   console.log('\n📥 Full request body:', JSON.stringify(req.body, null, 2));
 
   const toolCallId = extractToolCallId(req.body);
   const query = extractArg(req.body, 'query');
 
-  console.log(`\n🔍 Procedure search: "${query}"`);
+  console.log(`\n🔍 Policy form search: "${query}"`);
   console.log(`   Tool Call ID: ${toolCallId}`);
 
   if (!query) {
@@ -279,9 +269,9 @@ app.post('/search-procedures', (req, res) => {
   const results = searchDocuments(query);
 
   if (results.length === 0) {
-    console.log('   ❌ No relevant procedures found');
+    console.log('   ❌ No relevant policy sections found');
     return vapiResult(res, toolCallId,
-      'No matching procedure in this demo database. It covers crank relearns, front brake jobs, TPMS relearns, serpentine belts, O2 sensors, and EVAP smoke testing.');
+      'No matching section in this demo policy library. It covers the HO-3 homeowners form, the businessowners (BOP) form, and the standard flood policy.');
   }
 
   // Combine results into single-line text (Vapi requirement: no line breaks)
@@ -294,207 +284,190 @@ app.post('/search-procedures', (req, res) => {
 });
 
 // ============================================
-// IN-VAN CO-PILOT FUNCTIONALITY
-// (second product: voice layer on the operator's own business data)
+// OPERATIONS CO-PILOT FUNCTIONALITY
+// (second product: voice layer on the claims firm's own operations data)
 // ============================================
 
-const INVAN_CUSTOMERS_PATH = path.join(__dirname, 'invan-context/customers.json');
-const INVAN_INVENTORY_PATH = path.join(__dirname, 'invan-context/inventory.json');
+const INVAN_CLAIMS_PATH = path.join(__dirname, 'invan-context/claims.json');
+const INVAN_ROSTER_PATH = path.join(__dirname, 'invan-context/roster.json');
 
-function loadInvanCustomers() {
-  if (fs.existsSync(INVAN_CUSTOMERS_PATH)) {
-    return JSON.parse(fs.readFileSync(INVAN_CUSTOMERS_PATH, 'utf8'));
+function loadInvanClaims() {
+  if (fs.existsSync(INVAN_CLAIMS_PATH)) {
+    return JSON.parse(fs.readFileSync(INVAN_CLAIMS_PATH, 'utf8'));
   }
-  return { stops: [] };
+  return { files: [] };
 }
 
-function loadInvanInventory() {
-  if (fs.existsSync(INVAN_INVENTORY_PATH)) {
-    return JSON.parse(fs.readFileSync(INVAN_INVENTORY_PATH, 'utf8'));
+function loadInvanRoster() {
+  if (fs.existsSync(INVAN_ROSTER_PATH)) {
+    return JSON.parse(fs.readFileSync(INVAN_ROSTER_PATH, 'utf8'));
   }
-  return { inventory: [] };
+  return { adjusters: [] };
 }
 
-let invanCustomers = loadInvanCustomers();
-let invanInventory = loadInvanInventory();
-// Captured orders/to-dos live in memory for the demo (voice-as-commit). A real
-// build would write these to the franchise operating system of record.
+let invanClaims = loadInvanClaims();
+let invanRoster = loadInvanRoster();
+// Captured follow-ups/tasks live in memory for the demo (voice-as-commit). A real
+// build would write these to the firm's claims-management system of record.
 let invanCaptures = [];
 
-// ---- 5.1 Pre-stop briefing (voice-as-read) ----
+// ---- Claim file briefing (voice-as-read) ----
 
-// Match a query to a stop, or to a specific customer within a stop.
-function findStopOrCustomer(query) {
+// Match a query to a claim file by claim number, claimant name, or location.
+function findClaim(query) {
   const q = String(query || '').toLowerCase();
   if (!q) return null;
 
-  for (const stop of invanCustomers.stops) {
-    for (const c of stop.customers) {
-      const name = c.name.toLowerCase();
-      const firstName = name.split(' ')[0];
-      if (q.includes(name) || (firstName.length > 2 && q.includes(firstName))) {
-        return { stop, customer: c };
-      }
+  for (const f of invanClaims.files) {
+    const claimant = f.claimant.toLowerCase();
+    const firstWord = claimant.split(' ')[0];
+    const claimNo = f.claim_no.toLowerCase();
+    if (q.includes(claimNo) || q.includes(claimant) || (firstWord.length > 2 && q.includes(firstWord))) {
+      return f;
     }
   }
 
   const keywords = q.split(/\s+/).filter(w => w.length > 2);
   let best = null, bestScore = 0;
-  for (const stop of invanCustomers.stops) {
-    const loc = stop.location.toLowerCase();
+  for (const f of invanClaims.files) {
+    const hay = `${f.location} ${f.insurer} ${f.loss_type}`.toLowerCase();
     let score = 0;
-    keywords.forEach(k => { if (loc.includes(k)) score += 3; });
-    if (score > bestScore) { bestScore = score; best = stop; }
+    keywords.forEach(k => { if (hay.includes(k)) score += 3; });
+    if (score > bestScore) { bestScore = score; best = f; }
   }
-  return best ? { stop: best, customer: null } : null;
+  return bestScore > 0 ? best : null;
 }
 
-function money(n) {
-  return Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-}
-
-function briefCustomer(c) {
-  const parts = [`${c.name}, ${c.role}:`];
-
-  if (c.balance > 0) {
-    const due = c.past_due_days > 0 ? `, ${c.past_due_days} days past due` : '';
-    parts.push(`owes ${money(c.balance)} dollars${due}.`);
-  } else {
-    parts.push('paid up.');
-  }
-
-  c.open_orders.forEach(o => parts.push(`Special order — ${o.item}, ${o.status}.`));
-  c.warranty_items.forEach(w => parts.push(`Warranty — ${w.item}, ${w.status}.`));
-  if (c.last_visit_note) parts.push(`Last visit: ${c.last_visit_note}`);
-
+function briefClaim(f) {
+  const parts = [`Claim ${f.claim_no}, ${f.claimant}, ${f.role}.`];
+  parts.push(`Insurer ${f.insurer}, ${f.policy_form}.`);
+  parts.push(`${f.loss_type}, reported ${f.loss_date}.`);
+  parts.push(`Status: ${f.status}.`);
+  if (f.deadline) parts.push(`${f.deadline} due in ${f.deadline_days} days.`);
+  parts.push(`Assigned to ${f.adjuster}.`);
+  if (f.note) parts.push(`Note: ${f.note}`);
   return parts.join(' ');
-}
-
-function buildBriefing(match) {
-  const { stop, customer } = match;
-  if (customer) {
-    return `At ${stop.location}. ${briefCustomer(customer)}`;
-  }
-  const count = stop.customers.length;
-  const header = `${stop.location}. ${count} ${count === 1 ? 'customer' : 'customers'} here.`;
-  return `${header} ${stop.customers.map(briefCustomer).join(' ')}`;
 }
 
 app.post('/briefing', (req, res) => {
   console.log('\n📥 Briefing request:', JSON.stringify(req.body, null, 2));
 
   const toolCallId = extractToolCallId(req.body);
-  const stopQuery = extractArg(req.body, 'stop');
+  const claimQuery = extractArg(req.body, 'claim');
 
-  console.log(`\n📋 Pre-stop briefing: "${stopQuery}"`);
+  console.log(`\n📋 Claim briefing: "${claimQuery}"`);
 
-  if (!stopQuery) {
-    return vapiResult(res, toolCallId, 'Error: stop parameter is required', 400);
+  if (!claimQuery) {
+    return vapiResult(res, toolCallId, 'Error: claim parameter is required', 400);
   }
 
-  const match = findStopOrCustomer(stopQuery);
+  const file = findClaim(claimQuery);
 
-  if (!match) {
-    const stops = invanCustomers.stops.map(s => s.location).join(', ');
+  if (!file) {
+    const files = invanClaims.files.map(f => `${f.claim_no} (${f.claimant})`).join(', ');
     return vapiResult(res, toolCallId,
-      `I don't have a stop or customer matching that in this demo. Stops on the route: ${stops}.`);
+      `I don't have a claim file matching that in this demo. Open files: ${files}.`);
   }
 
-  console.log(`   ✅ Briefing: ${match.stop.location}${match.customer ? ' / ' + match.customer.name : ''}`);
-  return vapiResult(res, toolCallId, buildBriefing(match));
+  console.log(`   ✅ Briefing: ${file.claim_no} / ${file.claimant}`);
+  return vapiResult(res, toolCallId, briefClaim(file));
 });
 
-// ---- 5.3 Inventory check (voice-as-read) ----
+// ---- Adjuster roster check (voice-as-read) ----
 
-function searchInventory(query) {
+function searchRoster(query) {
   const q = String(query || '').toLowerCase();
-  const keywords = q.split(/\s+/).filter(w => w.length > 1);
+  const keywords = q.split(/\s+/).filter(w => w.length > 2);
 
-  return invanInventory.inventory.map(item => {
+  return invanRoster.adjusters.map(a => {
     let score = 0;
-    const name = item.item.toLowerCase();
+    const region = a.region.toLowerCase();
+    const licenses = (a.licenses || '').toLowerCase();
     keywords.forEach(k => {
-      if (name.includes(k)) score += 4;
-      if ((item.category || '').toLowerCase().includes(k)) score += 1;
+      if (region.includes(k)) score += 5;
+      if (licenses.includes(k)) score += 2;
+      if (a.name.toLowerCase().includes(k)) score += 4;
     });
-    return { ...item, score };
+    return { ...a, score };
   })
-  .filter(i => i.score > 0)
-  .sort((a, b) => b.score - a.score)
-  .slice(0, 3);
+  .filter(a => a.score > 0)
+  .sort((a, b) => b.score - a.score);
 }
 
-function describeInventory(i) {
-  if (i.on_van <= 0) {
-    return `${i.item}: none on the van right now. Minimum is ${i.min}. Want me to add it to a reorder?`;
+function describeAdjuster(a) {
+  if (a.status === 'available') {
+    return `${a.name}, licensed in ${a.licenses}, ${a.open_files} open files — available.`;
   }
-  const where = i.location ? ` in ${i.location}` : '';
-  const low = i.on_van < i.min ? ` That's below your minimum of ${i.min} — flag for reorder.` : '';
-  const unit = i.on_van === 1 ? 'one' : i.on_van;
-  return `${i.item}: ${unit} on the van${where}.${low}`;
+  if (a.status === 'full') {
+    return `${a.name} is full at ${a.open_files} files — don't assign more.`;
+  }
+  return `${a.name}, ${a.open_files} open files — deployed but not maxed.`;
 }
 
-app.post('/inventory-check', (req, res) => {
-  console.log('\n📥 Inventory request:', JSON.stringify(req.body, null, 2));
+app.post('/roster-check', (req, res) => {
+  console.log('\n📥 Roster request:', JSON.stringify(req.body, null, 2));
 
   const toolCallId = extractToolCallId(req.body);
-  const query = extractArg(req.body, 'item');
+  const query = extractArg(req.body, 'region');
 
-  console.log(`\n📦 Inventory check: "${query}"`);
+  console.log(`\n👥 Roster check: "${query}"`);
 
   if (!query) {
-    return vapiResult(res, toolCallId, 'Error: item parameter is required', 400);
+    return vapiResult(res, toolCallId, 'Error: region parameter is required', 400);
   }
 
-  const results = searchInventory(query);
+  const results = searchRoster(query);
 
   if (results.length === 0) {
+    const regions = [...new Set(invanRoster.adjusters.map(a => a.region))].join(', ');
     return vapiResult(res, toolCallId,
-      "I don't see that on the van inventory list in this demo. Try the item name like '3/8 torque wrench' or '18 volt ratchet'.");
+      `No adjusters matching that in this demo roster. Regions covered: ${regions}.`);
   }
 
-  console.log(`   ✅ Found ${results.length} inventory matches`);
-  return vapiResult(res, toolCallId, results.map(describeInventory).join(' '));
+  const available = results.filter(a => a.status === 'available');
+  const header = `${available.length} available. `;
+  console.log(`   ✅ Found ${results.length} adjusters (${available.length} available)`);
+  return vapiResult(res, toolCallId, header + results.map(describeAdjuster).join(' '));
 });
 
-// ---- 5.2 Windshield-time capture (voice-as-commit) ----
+// ---- Follow-up / task capture (voice-as-commit) ----
 
-app.post('/capture-order', (req, res) => {
+app.post('/capture-task', (req, res) => {
   console.log('\n📥 Capture request:', JSON.stringify(req.body, null, 2));
 
   const toolCallId = extractToolCallId(req.body);
-  const customer = extractArg(req.body, 'customer');
-  const item = extractArg(req.body, 'item');
+  const claim = extractArg(req.body, 'claim');
+  const task = extractArg(req.body, 'task');
   const action = extractArg(req.body, 'action');
   const date = extractArg(req.body, 'date');
 
-  console.log(`\n📝 Capture: customer="${customer}" item="${item}" action="${action}" date="${date}"`);
+  console.log(`\n📝 Capture: claim="${claim}" task="${task}" action="${action}" date="${date}"`);
 
-  if (!item && !action) {
-    return vapiResult(res, toolCallId, 'Error: I need at least an item or an action to capture.', 400);
+  if (!task && !action) {
+    return vapiResult(res, toolCallId, 'Error: I need at least a task or an action to capture.', 400);
   }
 
   const record = {
-    id: `cap-${invanCaptures.length + 1}`,
-    customer: customer || null,
-    item: item || null,
+    id: `task-${invanCaptures.length + 1}`,
+    claim: claim || null,
+    task: task || null,
     action: action || null,
     date: date || null,
     capturedAt: new Date().toISOString()
   };
   invanCaptures.push(record);
 
-  // Spoken read-back for confirmation (FR-6: confirm before/at commit).
+  // Spoken read-back for confirmation (confirm at commit).
   const bits = [];
   if (action) bits.push(action);
-  if (item) bits.push(item);
+  if (task) bits.push(task);
   let line = bits.join(', ');
-  if (customer) line += ` for ${customer}`;
+  if (claim) line += ` for ${claim}`;
   if (date) line += `, ${date}`;
 
   console.log(`   ✅ Captured ${record.id}`);
   return vapiResult(res, toolCallId,
-    `Logged: ${line}. That's saved to your follow-ups. Anything else?`);
+    `Logged: ${line}. That's saved to the file's follow-ups. Anything else?`);
 });
 
 // ============================================
@@ -504,13 +477,13 @@ app.post('/capture-order', (req, res) => {
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
-    dtcs: dtcDB.dtcs.length,
-    specs: specDB.specs.length,
-    procedureChunks: documents.length,
-    invanStops: invanCustomers.stops.length,
-    invanInventory: invanInventory.inventory.length,
-    invanCaptures: invanCaptures.length,
-    message: 'ShopVoice + In-Van Co-Pilot backend is running'
+    clauses: policyDB.clauses.length,
+    endorsements: endorsementDB.endorsements.length,
+    policyFormChunks: documents.length,
+    openClaims: invanClaims.files.length,
+    adjusters: invanRoster.adjusters.length,
+    capturedTasks: invanCaptures.length,
+    message: 'PolicyVoice + Operations Co-Pilot backend is running'
   });
 });
 
@@ -518,15 +491,15 @@ app.get('/health', (req, res) => {
 // DATA BROWSER ENDPOINTS (read-only views of what the AI sees)
 // ============================================
 
-app.get('/data/dtcs', (req, res) => {
-  res.json({ dtcs: dtcDB.dtcs });
+app.get('/data/clauses', (req, res) => {
+  res.json({ clauses: policyDB.clauses });
 });
 
-app.get('/data/specs', (req, res) => {
-  res.json({ specs: specDB.specs });
+app.get('/data/endorsements', (req, res) => {
+  res.json({ endorsements: endorsementDB.endorsements });
 });
 
-app.get('/data/procedures', (req, res) => {
+app.get('/data/policy-forms', (req, res) => {
   const grouped = {};
   for (const doc of documents) {
     if (!grouped[doc.filename]) grouped[doc.filename] = [];
@@ -536,31 +509,31 @@ app.get('/data/procedures', (req, res) => {
   res.json({ files, totalChunks: documents.length });
 });
 
-app.get('/data/customers', (req, res) => {
-  res.json({ stops: invanCustomers.stops });
+app.get('/data/claims', (req, res) => {
+  res.json({ files: invanClaims.files });
 });
 
-app.get('/data/inventory', (req, res) => {
-  res.json({ inventory: invanInventory.inventory });
+app.get('/data/roster', (req, res) => {
+  res.json({ adjusters: invanRoster.adjusters });
 });
 
-app.get('/data/captures', (req, res) => {
-  res.json({ captures: invanCaptures });
+app.get('/data/tasks', (req, res) => {
+  res.json({ tasks: invanCaptures });
 });
 
 app.post('/reload', (req, res) => {
-  dtcDB = loadDtcDB();
-  specDB = loadSpecDB();
+  policyDB = loadPolicyDB();
+  endorsementDB = loadEndorsementDB();
   loadDocuments();
-  invanCustomers = loadInvanCustomers();
-  invanInventory = loadInvanInventory();
+  invanClaims = loadInvanClaims();
+  invanRoster = loadInvanRoster();
   res.json({
     success: true,
-    dtcs: dtcDB.dtcs.length,
-    specs: specDB.specs.length,
-    procedureChunks: documents.length,
-    invanStops: invanCustomers.stops.length,
-    invanInventory: invanInventory.inventory.length,
+    clauses: policyDB.clauses.length,
+    endorsements: endorsementDB.endorsements.length,
+    policyFormChunks: documents.length,
+    openClaims: invanClaims.files.length,
+    adjusters: invanRoster.adjusters.length,
     message: 'All data reloaded'
   });
 });
@@ -584,25 +557,25 @@ app.get(['/', '/index.html'], (req, res) => {
 loadDocuments();
 
 app.listen(port, () => {
-  console.log('\n🚀 ShopVoice - Backend');
+  console.log('\n🚀 PolicyVoice - Backend');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.log(`📍 Server URL: http://localhost:${port}`);
   console.log('');
-  console.log('📋 ShopVoice endpoints:');
-  console.log('  🔧 POST /lookup-dtc        - Diagnostic trouble code lookup');
-  console.log('  🔩 POST /lookup-spec       - Torque / fluid spec lookup');
-  console.log('  📚 POST /search-procedures - Repair procedure search');
-  console.log('📋 In-Van Co-Pilot endpoints:');
-  console.log('  📋 POST /briefing          - Pre-stop briefing');
-  console.log('  📦 POST /inventory-check   - On-van inventory check');
-  console.log('  📝 POST /capture-order     - Capture order / to-do');
+  console.log('📋 PolicyVoice endpoints:');
+  console.log('  📖 POST /lookup-coverage    - Policy coverage clause (verbatim)');
+  console.log('  📎 POST /lookup-endorsement - Endorsement / add-on (verbatim)');
+  console.log('  📚 POST /search-policy      - Policy form document search');
+  console.log('📋 Operations Co-Pilot endpoints:');
+  console.log('  📋 POST /briefing          - Claim file briefing');
+  console.log('  👥 POST /roster-check      - Adjuster roster / availability');
+  console.log('  📝 POST /capture-task      - Capture follow-up / task');
   console.log('  💚 GET  /health            - Health check');
   console.log('  🔄 POST /reload            - Reload data');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.log('');
   console.log('📊 Data Loaded:');
-  console.log(`  DTCs: ${dtcDB.dtcs.length} · Specs: ${specDB.specs.length} · Procedures: ${documents.length}`);
-  console.log(`  In-Van stops: ${invanCustomers.stops.length} · Inventory items: ${invanInventory.inventory.length}`);
+  console.log(`  Clauses: ${policyDB.clauses.length} · Endorsements: ${endorsementDB.endorsements.length} · Policy form chunks: ${documents.length}`);
+  console.log(`  Open claims: ${invanClaims.files.length} · Adjusters: ${invanRoster.adjusters.length}`);
   console.log('');
   console.log('🎉 Ready for Vapi integration!\n');
 

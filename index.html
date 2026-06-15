@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#0D0E10" />
-  <title>ShopVoice — Ask your repair data. Out loud.</title>
-  <meta name="description" content="ShopVoice is a live demo of voice access to shop reference data: trouble codes, torque specs, and repair procedures, answered hands-free." />
+  <title>PolicyVoice — The policy library that talks back.</title>
+  <meta name="description" content="PolicyVoice is a live demo of voice access to insurance policy wording: coverage clauses, exclusions, and endorsements, read back word for word for adjusters in the field." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -26,9 +26,9 @@
       --text: #F2F3F4;
       --muted: rgba(255, 255, 255, 0.64);
       --subtle: rgba(255, 255, 255, 0.42);
-      --accent: #F02D2D;
-      --accent-hover: #FF4747;
-      --accent-tint: rgba(240, 45, 45, 0.12);
+      --accent: #2563EB;
+      --accent-hover: #3B82F6;
+      --accent-tint: rgba(37, 99, 235, 0.14);
       --on-accent: #FFFFFF;
       --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
       --sans: "Inter", system-ui, -apple-system, sans-serif;
@@ -203,7 +203,7 @@
       font-family: var(--mono); font-size: 11px; letter-spacing: 0.02em;
       color: var(--muted);
       background: var(--accent-tint);
-      border: 1px solid rgba(240, 45, 45, 0.35);
+      border: 1px solid rgba(37, 99, 235, 0.35);
       border-radius: 6px; padding: 6px 10px;
     }
     .toolcall .tc-verb { color: var(--accent-hover); font-weight: 500; }
@@ -239,7 +239,7 @@
     }
     .phone-bar .avatar {
       width: 32px; height: 32px; border-radius: 50%; flex: none;
-      background: var(--accent-tint); border: 1px solid rgba(240,45,45,0.4);
+      background: var(--accent-tint); border: 1px solid rgba(37,99,235,0.4);
       display: grid; place-items: center; color: var(--accent);
       font-family: var(--mono); font-size: 11px; font-weight: 600;
     }
@@ -257,7 +257,7 @@
       align-self: center; display: inline-flex; align-items: center; gap: 7px;
       font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.05em; text-transform: uppercase;
       color: var(--accent-hover); background: var(--accent-tint);
-      border: 1px solid rgba(240,45,45,0.3); border-radius: 999px; padding: 4px 11px; animation: pop .18s ease-out;
+      border: 1px solid rgba(37,99,235,0.3); border-radius: 999px; padding: 4px 11px; animation: pop .18s ease-out;
     }
     .sys-lookup .vdot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
     .typing { align-self: flex-start; background: var(--surface-2); border-radius: 17px; border-bottom-left-radius: 5px; padding: 11px 14px; display: inline-flex; gap: 4px; animation: pop .18s ease-out; }
@@ -343,10 +343,10 @@
 
   <header>
     <div class="wrap header-inner">
-      <div class="wordmark" id="wordmark"><span class="brand-name">Elgin Auto</span><span class="brand-name">Shop<span class="vc">Voice</span></span></div>
+      <div class="wordmark" id="wordmark"><span class="brand-name">Gulf Coast Claims</span><span class="brand-name">Policy<span class="vc">Voice</span></span></div>
       <div class="tabs" role="tablist">
-        <button class="tab active" id="tab-shopvoice" role="tab" onclick="showView('shopvoice')">ShopVoice</button>
-        <button class="tab" id="tab-invan" role="tab" onclick="showView('invan')">Operating System Co-Pilot</button>
+        <button class="tab active" id="tab-shopvoice" role="tab" onclick="showView('shopvoice')">PolicyVoice</button>
+        <button class="tab" id="tab-invan" role="tab" onclick="showView('invan')">Voice Operating System</button>
       </div>
     </div>
   </header>
@@ -354,7 +354,8 @@
   <main class="wrap">
 
     <!-- ================================================================ -->
-    <!-- ============ PRODUCT 1 · SHOPVOICE =============================== -->
+    <!-- ============ PRODUCT 1 · POLICYVOICE ============================= -->
+    <!-- (internal ids/keys keep the legacy "shopvoice" name; not user-facing) -->
     <!-- ================================================================ -->
     <div class="view active" id="view-shopvoice">
 
@@ -363,8 +364,8 @@
         <div class="kicker"><span class="num">01</span><span class="label">Live demo</span></div>
         <div class="hero-grid">
           <div>
-            <h1>Automotive service manuals you can talk to.</h1>
-            <p class="lede">A tech under a car can't type. ShopVoice answers <strong>trouble codes, torque specs, and procedures</strong> from the shop's own reference data — spoken, in seconds, gloves on.</p>
+            <h1>The policy library that talks back.</h1>
+            <p class="lede">An adjuster on a wet roof can't scroll a sixty-page policy. PolicyVoice reads the <strong>exact coverage wording, exclusions, and endorsements</strong> back — word for word, with the form and page it came from — spoken in seconds, then texted as a receipt.</p>
 
             <div class="mic-row">
               <button id="sv-callBtn" class="mic-btn" onclick="toggleCall('shopvoice')">
@@ -376,9 +377,9 @@
 
             <div class="try-label">Try asking</div>
             <div class="chips">
-              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"What's the torque spec for the caliper bracket bolts on a 2019 F-150?"</button>
-              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"I've got a P0420 on a 2017 Silverado — what's the most likely real fix?"</button>
-              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Walk me through the crank relearn after replacing the sensor."</button>
+              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Is mold cleanup covered when the water came from a sewer backup?"</button>
+              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Read me the wind-driven rain exclusion on the HO-3 form."</button>
+              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Does the roof surfacing endorsement change the cosmetic damage exclusion?"</button>
             </div>
           </div>
 
@@ -389,8 +390,8 @@
             </div>
             <div class="readout-lines" id="sv-lines">
               <div class="readout-empty">
-                Tap to talk, allow the mic, and ask a question.
-                <span class="mono">Every lookup it runs shows here.</span>
+                Tap to talk, allow the mic, and ask a coverage question.
+                <span class="mono">Every policy lookup it runs shows here.</span>
               </div>
             </div>
           </div>
@@ -403,34 +404,34 @@
         <div class="text-grid">
           <div class="text-copy">
             <div class="text-head">
-              <h2>Too noisy to talk? Text it instead.</h2>
-              <p class="section-sub">Same shop reference data, as a chat on your phone. <strong>Tap a question</strong> and watch the answer come back, no crawling out from under the car to look it up.</p>
+              <h2>Tablet's wet? Text the policy instead.</h2>
+              <p class="section-sub">Same policy wording, as a chat on your phone. <strong>Tap a question</strong> and the exact clause comes back, with the form and page it came from. Never a summary.</p>
             </div>
             <ul class="text-points">
-              <li><span class="tick">→</span><span>Every answer comes from the shop's reference data, with the database it came from.</span></li>
-              <li><span class="tick">→</span><span>Ask something outside the demo corpus and it says so instead of guessing.</span></li>
-              <li><span class="tick">→</span><span>Voice when your hands are full, text when they're not. Same source of truth.</span></li>
+              <li><span class="tick">→</span><span>Every answer is the exact policy text, with the form name, page, and document number it came from.</span></li>
+              <li><span class="tick">→</span><span>Ask about a form it doesn't have and it says so. It never paraphrases or predicts coverage.</span></li>
+              <li><span class="tick">→</span><span>Voice on the roof, text at the truck. Same source of truth, and a written record of every call.</span></li>
             </ul>
           </div>
 
           <div class="phone">
             <div class="phone-screen">
               <div class="phone-bar">
-                <div class="avatar">SV</div>
+                <div class="avatar">PV</div>
                 <div>
-                  <div class="pb-name">ShopVoice</div>
-                  <div class="pb-sub">Shop reference data</div>
+                  <div class="pb-name">PolicyVoice</div>
+                  <div class="pb-sub">Policy wording, verbatim</div>
                 </div>
               </div>
               <div class="chat" id="sv-chatThread">
-                <div class="chat-hint" id="sv-chatHint">Tap a question below to text the shop data.</div>
+                <div class="chat-hint" id="sv-chatHint">Tap a question below to text the policy library.</div>
               </div>
               <div class="phone-tray">
                 <div class="tray-label">Tap to send a text</div>
                 <div class="tray-chips" id="sv-trayChips">
-                  <button class="tray-chip" onclick="sendSim('shopvoice', 0)"><span class="q">Q</span>What's the real fix for a P0420 on a 2017 Silverado?</button>
-                  <button class="tray-chip" onclick="sendSim('shopvoice', 1)"><span class="q">Q</span>Caliper bracket bolt torque on a 2019 F-150?</button>
-                  <button class="tray-chip" onclick="sendSim('shopvoice', 2)"><span class="q">Q</span>Crank relearn after replacing the sensor?</button>
+                  <button class="tray-chip" onclick="sendSim('shopvoice', 0)"><span class="q">Q</span>Is mold cleanup covered when the water came from a sewer backup?</button>
+                  <button class="tray-chip" onclick="sendSim('shopvoice', 1)"><span class="q">Q</span>Read me the wind-driven rain exclusion on the HO-3.</button>
+                  <button class="tray-chip" onclick="sendSim('shopvoice', 2)"><span class="q">Q</span>Does the roof surfacing endorsement change the cosmetic exclusion?</button>
                 </div>
               </div>
             </div>
@@ -440,50 +441,51 @@
 
       <!-- ============ 03 · WHERE THIS FITS ============ -->
       <section id="sv-fit">
-        <div class="kicker"><span class="num">03</span><span class="label">Where this fits</span></div>
-        <h2>Three places this lands inside Snap-on</h2>
-        <p class="section-sub">The demo runs on a small stand-in corpus. The pattern — voice in, verified data out — maps onto corpora Snap-on already owns.</p>
+        <div class="kicker"><span class="num">03</span><span class="label">Where it fits your day</span></div>
+        <h2>Three moments in the field where it earns its keep</h2>
+        <p class="section-sub">PolicyVoice rides along on the calls you already make from the damage site. It fits the work, not the office.</p>
 
         <div class="fit-rows">
           <div class="fit-row">
             <div>
-              <h3 class="fit-name"><span class="idx">A</span>Voice layer on ProDemand / SureTrack</h3>
-              <p class="fit-why">The highest-value target. SureTrack's billion-record corpus of verified real fixes is exactly what techs would ask for by voice — the demo's ranked "real fix" answers are a miniature of it.</p>
+              <h3 class="fit-name"><span class="idx">A</span>On the roof, with the homeowner watching</h3>
+              <p class="fit-why">You're standing on wind-damaged shingles and the homeowner is three feet away asking what their policy covers. Call the line, name the insurer and the form, and the exact clause comes back in seconds, spoken aloud, so you can keep working without scrolling a sixty-page file on a wet tablet.</p>
             </div>
             <div class="fit-owner">
-              <span class="routes">Routes to</span>
-              <span class="owner">Mitchell 1 / Repair Systems &amp; Information</span>
+              <span class="routes">When</span>
+              <span class="owner">At the damage site</span>
             </div>
           </div>
           <div class="fit-row">
             <div>
-              <h3 class="fit-name"><span class="idx">B</span>Hands-free assist on diagnostic platforms</h3>
-              <p class="fit-why">Zeus, Verus, and Verdict already integrate SureTrack. A tech under the car asking the handheld a question — instead of crawling out to tap through it — is a natural product extension.</p>
+              <h3 class="fit-name"><span class="idx">B</span>The question you can't answer from memory</h3>
+              <p class="fit-why">A sixty-page policy with a dozen add-ons, and a question you're not certain on. "I'll get back to you" stalls the file and can mean a second trip out. Guessing risks a mishandled-claim complaint. Instead you read the wording out loud, on the spot, word for word, and it flags when an endorsement changes what the base form says.</p>
             </div>
             <div class="fit-owner">
-              <span class="routes">Routes to</span>
-              <span class="owner">Diagnostics hardware / software group</span>
+              <span class="routes">Instead of</span>
+              <span class="owner">A guess or a callback</span>
             </div>
           </div>
           <div class="fit-row">
             <div>
-              <h3 class="fit-name"><span class="idx">C</span>Franchisee receive-and-lookup line</h3>
-              <p class="fit-why">The simpler beachhead: a phone line franchisees and their customers call for instant spec and procedure lookups. Smallest build, fastest pilot, proves the pattern in the field.</p>
+              <h3 class="fit-name"><span class="idx">C</span>The record that covers you later</h3>
+              <p class="fit-why">The exact wording, the form name, and the page get texted to you as a receipt, and every call is logged against the claim: who called, the insurer, the question, the answer. When the homeowner, your firm, or the carrier asks what you told them, there is a written record of exactly what was read.</p>
             </div>
             <div class="fit-owner">
-              <span class="routes">Routes to</span>
-              <span class="owner">Tools / franchise systems</span>
+              <span class="routes">After the call</span>
+              <span class="owner">Texted receipt + call log</span>
             </div>
           </div>
         </div>
 
-        <p class="fit-note"><strong>Why this travels:</strong> the demo corpus is ~30 codes, 40 specs, and 6 procedures. Nothing about the architecture changes at a billion records — the corpus is a plug-in, the voice layer is the product.</p>
+        <p class="fit-note"><strong>Why you can lean on it:</strong> the line only reads the policy back to you, word for word, checked against the document before it speaks. It never interprets coverage or predicts the outcome. The determination stays yours. What it hands you is exactly what's on the page.</p>
       </section>
 
     </div><!-- /view-shopvoice -->
 
     <!-- ================================================================ -->
-    <!-- ============ PRODUCT 2 · IN-VAN CO-PILOT ======================== -->
+    <!-- ============ PRODUCT 2 · VOICE OPERATING SYSTEM ================== -->
+    <!-- (internal ids/keys keep the legacy "invan" name; not user-facing) -->
     <!-- ================================================================ -->
     <div class="view" id="view-invan">
 
@@ -492,8 +494,8 @@
         <div class="kicker"><span class="num">01</span><span class="label">Live demo</span></div>
         <div class="hero-grid">
           <div>
-            <h1>Talk to your business. While you're on the go.</h1>
-            <p class="lede">A small-business owner-operator runs the whole operation from the field, not a desk. The Operating System Co-Pilot answers from their <strong>own customers, balances, orders, and inventory</strong>, spoken aloud so they can keep working with their hands free.</p>
+            <h1>Run storm season from the field, not a desk.</h1>
+            <p class="lede">When the storm hits, the firm runs from the road, not the office. The Voice Operating System answers from Gulf Coast Claims' own data, your <strong>open claim files, adjuster roster, and follow-ups</strong>, spoken aloud so you can keep moving.</p>
 
             <div class="mic-row">
               <button id="iv-callBtn" class="mic-btn" onclick="toggleCall('invan')">
@@ -505,9 +507,9 @@
 
             <div class="try-label">Try asking</div>
             <div class="chips">
-              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"What's the story on my next job, the Calloway account?"</button>
-              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"Do I have the replacement unit in stock right now?"</button>
-              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"Special order the larger unit for Sarah, follow up next Tuesday."</button>
+              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"What's the story on my next inspection, the Calloway file?"</button>
+              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"Do I have an adjuster free near Fort Myers right now?"</button>
+              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"Order an engineer report for the Calloway file, follow up next Tuesday."</button>
             </div>
           </div>
 
@@ -518,7 +520,7 @@
             </div>
             <div class="readout-lines" id="iv-lines">
               <div class="readout-empty">
-                Tap to talk, allow the mic, and ask for a briefing.
+                Tap to talk, allow the mic, and ask for a claim briefing.
                 <span class="mono">Every record it pulls shows here.</span>
               </div>
             </div>
@@ -532,12 +534,12 @@
         <div class="text-grid">
           <div class="text-copy">
             <div class="text-head">
-              <h2>Never sitting at a desk? Text your business instead.</h2>
-              <p class="section-sub">Same business data, as a chat on your phone. <strong>Tap a question</strong> and watch it pull from your own records, no app to tap through.</p>
+              <h2>Driving between sites? Text the firm instead.</h2>
+              <p class="section-sub">Same operations data, as a chat on your phone. <strong>Tap a question</strong> and it pulls from your own claim files and roster, no system to log into.</p>
             </div>
             <ul class="text-points">
-              <li><span class="tick">→</span><span>Every answer comes from the operator's own records, with the source it came from.</span></li>
-              <li><span class="tick">→</span><span>Ask about something it doesn't have and it says so instead of inventing a number.</span></li>
+              <li><span class="tick">→</span><span>Every answer comes from the firm's own records, with the source it came from.</span></li>
+              <li><span class="tick">→</span><span>Ask about a file or an adjuster it doesn't have and it says so instead of inventing one.</span></li>
               <li><span class="tick">→</span><span>Voice while you drive, text when you're stopped. Same source of truth.</span></li>
             </ul>
           </div>
@@ -545,21 +547,21 @@
           <div class="phone">
             <div class="phone-screen">
               <div class="phone-bar">
-                <div class="avatar">OS</div>
+                <div class="avatar">VO</div>
                 <div>
-                  <div class="pb-name">Operating System Co-Pilot</div>
-                  <div class="pb-sub">Your business data</div>
+                  <div class="pb-name">Voice Operating System</div>
+                  <div class="pb-sub">Gulf Coast Claims data</div>
                 </div>
               </div>
               <div class="chat" id="iv-chatThread">
-                <div class="chat-hint" id="iv-chatHint">Tap a question below to text your business.</div>
+                <div class="chat-hint" id="iv-chatHint">Tap a question below to text the firm.</div>
               </div>
               <div class="phone-tray">
                 <div class="tray-label">Tap to send a text</div>
                 <div class="tray-chips" id="iv-trayChips">
-                  <button class="tray-chip" onclick="sendSim('invan', 0)"><span class="q">Q</span>What's the story on my next job, the Calloway account?</button>
-                  <button class="tray-chip" onclick="sendSim('invan', 1)"><span class="q">Q</span>Do I have the replacement unit in stock?</button>
-                  <button class="tray-chip" onclick="sendSim('invan', 2)"><span class="q">Q</span>Special order the larger unit for Sarah, follow up Tuesday.</button>
+                  <button class="tray-chip" onclick="sendSim('invan', 0)"><span class="q">Q</span>What's the story on my next inspection, the Calloway file?</button>
+                  <button class="tray-chip" onclick="sendSim('invan', 1)"><span class="q">Q</span>Do I have an adjuster free near Fort Myers?</button>
+                  <button class="tray-chip" onclick="sendSim('invan', 2)"><span class="q">Q</span>Order an engineer report for the Calloway file, follow up Tuesday.</button>
                 </div>
               </div>
             </div>
@@ -570,38 +572,38 @@
       <!-- ============ 03 · WHERE THIS FITS ============ -->
       <section id="iv-fit">
         <div class="kicker"><span class="num">03</span><span class="label">Where this fits</span></div>
-        <h2>Where the Co-Pilot lands</h2>
-        <p class="section-sub">The demo runs on a small stand-in slice of one operator's data. The pattern, voice in and the operator's own records out, maps onto the systems any owner-operator business already runs.</p>
+        <h2>Where the Voice Operating System lands</h2>
+        <p class="section-sub">The demo runs on a small stand-in slice of the firm's data. The pattern, voice in and the firm's own records out, maps onto the systems a claims firm already runs.</p>
 
         <div class="fit-rows">
           <div class="fit-row">
             <div>
-              <h3 class="fit-name"><span class="idx">A</span>Voice layer on your system of record</h3>
-              <p class="fit-why">The highest-value target. Your customers, balances, jobs, and inventory already live in whatever you run the business on, a CRM, a field-service app, point-of-sale, even a spreadsheet. The Co-Pilot reads and writes through it as a voice layer. It doesn't replace your system of record.</p>
+              <h3 class="fit-name"><span class="idx">A</span>Voice layer on your claims system</h3>
+              <p class="fit-why">Your files, claimants, deadlines, and adjuster assignments already live in your claims-management system or your spreadsheets. The Voice Operating System reads and writes through it as a voice layer. It doesn't replace your system of record.</p>
             </div>
             <div class="fit-owner">
               <span class="routes">Routes to</span>
-              <span class="owner">Your CRM / business software</span>
+              <span class="owner">Your claims / CMS software</span>
             </div>
           </div>
           <div class="fit-row">
             <div>
-              <h3 class="fit-name"><span class="idx">B</span>Call-catching line for when you can't pick up</h3>
-              <p class="fit-why">When a customer calls and you're on a job, behind the wheel, or off the clock, the Co-Pilot catches the contact, captures what they need, and books the follow-up. Work that would otherwise be lost gets recovered.</p>
+              <h3 class="fit-name"><span class="idx">B</span>Storm-season deployment desk</h3>
+              <p class="fit-why">When your team swells from 75 to 300 adjusters across three states, it answers who's available, who's overloaded, and where the open files are, without anyone stopping to tap through a dashboard.</p>
             </div>
             <div class="fit-owner">
               <span class="routes">Routes to</span>
-              <span class="owner">Telephony / contact capture</span>
+              <span class="owner">Deployment / dispatch</span>
             </div>
           </div>
           <div class="fit-row">
             <div>
-              <h3 class="fit-name"><span class="idx">C</span>Coordinating a small crew</h3>
-              <p class="fit-why">For owners running a few trucks, techs, or helpers: notes and orders captured against a specific job or person, plus light oversight across the team, without anyone stopping to tap through a screen.</p>
+              <h3 class="fit-name"><span class="idx">C</span>Catching what comes in off-hours</h3>
+              <p class="fit-why">When a homeowner or carrier calls and you're on a roof or off the clock, it catches the contact, captures what they need against the right file, and books the follow-up. Work that would otherwise be lost gets recovered.</p>
             </div>
             <div class="fit-owner">
               <span class="routes">Routes to</span>
-              <span class="owner">Multi-person operators</span>
+              <span class="owner">Telephony / intake</span>
             </div>
           </div>
         </div>
@@ -614,7 +616,7 @@
   <footer>
     <div class="wrap footer-inner">
       <span>A working demo by Ian Pilon · <a href="mailto:ianpilon@gmail.com">ianpilon@gmail.com</a></span>
-      <span class="footer-demo-note">demo data only · not affiliated with Snap-on Inc.</span>
+      <span class="footer-demo-note">demo data only · stand-in policy wording, not a real insurer's forms</span>
     </div>
   </footer>
 
@@ -628,14 +630,14 @@
     const APPS = {
       shopvoice: {
         key: "shopvoice",
-        wordmark: '<span class="brand-name">Elgin Auto</span><span class="brand-name">Shop<span class="vc">Voice</span></span>',
-        speaker: "ShopVoice",
-        userLabel: "Tech",
+        wordmark: '<span class="brand-name">Gulf Coast Claims</span><span class="brand-name">Policy<span class="vc">Voice</span></span>',
+        speaker: "PolicyVoice",
+        userLabel: "Adjuster",
         assistantId: "383bdcd9-cd6c-4840-a9fb-505bb64daf27",
         toolLabels: {
-          lookup_dtc: "DTC DATABASE",
-          lookup_spec: "SPEC DATABASE",
-          search_procedures: "PROCEDURE LIBRARY"
+          lookup_coverage: "POLICY FORMS",
+          lookup_endorsement: "ENDORSEMENTS",
+          search_policy: "POLICY LIBRARY"
         },
         ids: {
           callBtn: "sv-callBtn", callStatus: "sv-callStatus",
@@ -644,31 +646,31 @@
           chatHint: "sv-chatHint", trayChips: "sv-trayChips"
         },
         sims: [
-          { q: "What's the real fix for a P0420 on a 2017 Silverado?",
-            lookup: "DTC database",
-            a: "P0420 is catalyst efficiency below threshold, bank 1. Most common verified fix is the bank 1 catalytic converter — but check fuel trims and misfires first. A new cat fails again if the upstream cause survives.",
-            cite: "Source: DTC database · P0420, ranked verified fixes." },
-          { q: "Caliper bracket bolt torque on a 2019 F-150?",
-            lookup: "Spec database",
-            a: "184 ft-lb on the bracket bolts. Guide pins are 27 ft-lb. Clean the threads — no thread locker needed per the manual.",
-            cite: "Source: Spec database · 2019 F-150 front brakes." },
-          { q: "Crank relearn after replacing the sensor?",
-            lookup: "Procedure library",
-            a: "Most Fords self-learn the crank profile on decel fuel cut: 40 to 60 mph, throttle off, coast in gear 10 seconds, repeat 3 to 5 times. No scan tool unless a P0315 sticks around.",
-            cite: "Source: Procedure library · crank relearn." }
+          { q: "Is mold cleanup covered when the water came from a sewer backup?",
+            lookup: "Policy forms",
+            a: "Reading the base form, Section I Exclusions, page 12, quote: We do not insure for loss caused by mold, fungus or wet rot. This exclusion does not apply when mold, fungus or wet rot results from water damage that is otherwise covered under Section I, end quote. Whether the sewer backup itself is covered turns on the Water Back-Up endorsement. I can read that next. I'm not making the coverage call.",
+            cite: "Source: HO-3 base form HO 00 03 · p.12, §I Exclusions · verbatim" },
+          { q: "Read me the wind-driven rain exclusion on the HO-3.",
+            lookup: "Policy forms",
+            a: "HO-3, Section I, page 9, quote: We do not insure for loss to the interior of a building, or property inside a building, caused by rain, snow, sleet, sand or dust, unless a covered peril first damages the building causing an opening through which the rain, snow, sleet, sand or dust enters, end quote. That's the clause, word for word.",
+            cite: "Source: HO-3 base form HO 00 03 · p.9, §I-2 · verbatim" },
+          { q: "Does the roof surfacing endorsement change the cosmetic exclusion?",
+            lookup: "Endorsements",
+            a: "Yes, an endorsement is attached and it modifies the base form. Roof Surfacing Cosmetic Damage Exclusion, page 1, quote: We will not pay for cosmetic damage to roof surfacing caused by hail or wind. Cosmetic damage means marring, pitting or other superficial damage that alters the appearance of the roof surfacing but does not result in the failure of the roof surfacing to perform its function of keeping out water, end quote. This adds an exclusion the base form does not contain.",
+            cite: "Source: Endorsement HO 04 — Roof Surfacing Cosmetic · p.1 · modifies base form" }
         ],
         simBusy: false, simStarted: false
       },
       invan: {
         key: "invan",
-        wordmark: '<span class="brand-name">Elgin Auto</span><span class="brand-name">Operating System <span class="vc">Co-Pilot</span></span>',
-        speaker: "Co-Pilot",
+        wordmark: '<span class="brand-name">Gulf Coast Claims</span><span class="brand-name"><span class="vc">Voice</span> Operating System</span>',
+        speaker: "Voice OS",
         userLabel: "Operator",
         assistantId: "4da59ae1-e4a3-4b7d-9a4f-f2a7788218a5",
         toolLabels: {
-          pre_stop_briefing: "CUSTOMER RECORDS",
-          inventory_check: "VAN INVENTORY",
-          capture_order: "ORDER CAPTURE"
+          claim_briefing: "CLAIM FILES",
+          roster_check: "ADJUSTER ROSTER",
+          capture_task: "TASK CAPTURE"
         },
         ids: {
           callBtn: "iv-callBtn", callStatus: "iv-callStatus",
@@ -677,18 +679,18 @@
           chatHint: "iv-chatHint", trayChips: "iv-trayChips"
         },
         sims: [
-          { q: "What's the story on my next job, the Calloway account?",
-            lookup: "Customer records",
-            a: "Two open items at Calloway. Sarah Calloway owes $1,240, 18 days past due, and there's an approved quote waiting on your sign-off. Last visit she asked about the larger unit. Your other contact there, Dave Kowalski, is paid up.",
-            cite: "Source: Customer records · Calloway account." },
-          { q: "Do I have the replacement unit in stock?",
-            lookup: "Inventory",
-            a: "Three in stock, on the shelf. You're good to fit one for Sarah on the spot.",
-            cite: "Source: Inventory · current on-hand count." },
-          { q: "Special order the larger unit for Sarah, follow up next Tuesday.",
-            lookup: "Order capture",
-            a: "Logged: special order, larger unit for Sarah Calloway, follow up next Tuesday. Saved to your follow-ups.",
-            cite: "Source: Order capture · written to follow-ups." }
+          { q: "What's the story on my next inspection, the Calloway file?",
+            lookup: "Claim files",
+            a: "Claim GCC-2287, Calloway residence in Cape Coral. Insurer Citizens, HO-3 form. Wind and water loss from Hurricane Lina, reported October 9th. Inspection scheduled today. Sworn proof of loss is due in 12 days. Assigned to Marcus Reed. Note: homeowner is asking about mold from a sewer backup.",
+            cite: "Source: Claim files · GCC-2287." },
+          { q: "Do I have an adjuster free near Fort Myers?",
+            lookup: "Adjuster roster",
+            a: "Two available in Fort Myers. Dana Ortiz, licensed in Florida, two open files. And Priya Shah, licensed in Florida and Georgia, one open file. Marcus Reed is in the area but he's full at thirty files.",
+            cite: "Source: Adjuster roster · Fort Myers region." },
+          { q: "Order an engineer report for the Calloway file, follow up Tuesday.",
+            lookup: "Task capture",
+            a: "Logged: order an engineer report for claim GCC-2287, Calloway residence, follow up next Tuesday. Saved to the file's follow-ups.",
+            cite: "Source: Task capture · written to claim GCC-2287." }
         ],
         simBusy: false, simStarted: false
       }
@@ -697,7 +699,7 @@
     function el(id) { return document.getElementById(id); }
 
     // ---- Tab / view switching ----
-    let currentView = "invan";
+    let currentView = "shopvoice";
 
     function showView(key) {
       if (key === currentView) return;
@@ -756,7 +758,7 @@
             if (!fn) return;
             let arg = tc?.function?.arguments || tc?.parameters || {};
             if (typeof arg === "string") { try { arg = JSON.parse(arg); } catch (e) { arg = {}; } }
-            const detail = arg.code || arg.query || arg.stop || arg.item || arg.action || arg.customer || "";
+            const detail = arg.topic || arg.query || arg.insurer || arg.claim || arg.region || arg.task || arg.action || "";
             addToolCall(app, app.ids.lines, fn, detail);
           });
         }

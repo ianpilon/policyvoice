@@ -2,12 +2,12 @@ require('dotenv').config();
 const fs = require('fs');
 
 // Pass the backend URL (e.g. an ngrok tunnel or the Render URL) as the first argument.
-const BACKEND_URL = process.argv[2] || 'https://shopvoice-backend.onrender.com';
+const BACKEND_URL = process.argv[2] || 'https://shopvoice-invan-backend.onrender.com';
 
 function assistantConfig(systemPrompt) {
   return {
-    name: 'In-Van Co-Pilot',
-    firstMessage: "Co-Pilot here. Want a briefing for your next stop, an inventory check, or should I log something?",
+    name: 'Voice Operating System',
+    firstMessage: "Voice Operating System here. Want a briefing on a claim file, an adjuster check for an area, or should I log a follow-up?",
     model: {
       provider: 'openai',
       model: 'gpt-4o',
@@ -23,17 +23,17 @@ function assistantConfig(systemPrompt) {
           type: 'function',
           async: false,
           function: {
-            name: 'pre_stop_briefing',
-            description: "Assemble a spoken pre-stop briefing for an upcoming stop or a specific customer: who is there, outstanding balances and days past due, open special orders, warranty items ready to hand off, and last-visit context. Use whenever the operator asks 'what's the story at this stop', asks about a stop or shop by name, or asks about a specific customer.",
+            name: 'claim_briefing',
+            description: "Assemble a spoken brief on a claim file: claim number, claimant, insurer and policy form, the loss, current status, the next deadline and days remaining, the assigned adjuster, and a working note. Use whenever the operator asks 'what's the story on this file', asks about a claim by number, or asks about a claimant or location.",
             parameters: {
               type: 'object',
               properties: {
-                stop: {
+                claim: {
                   type: 'string',
-                  description: "The stop or customer the operator named — a shop/location like 'Hennepin' or 'Lakeside', or a customer name like 'Mike' or 'Sam Whitfield'."
+                  description: "The claim the operator named — a claim number like 'GCC-2287', a claimant like 'the Calloway file', or a location like 'Naples'."
                 }
               },
-              required: ['stop']
+              required: ['claim']
             }
           },
           server: {
@@ -45,21 +45,21 @@ function assistantConfig(systemPrompt) {
           type: 'function',
           async: false,
           function: {
-            name: 'inventory_check',
-            description: "Check whether an item is on the van right now, how many, where it is stored, and whether it is below the minimum stock level. Use for any 'do I have', 'is there', or 'how many' question about tools or stock on the van.",
+            name: 'roster_check',
+            description: "Check which adjusters are available in an area right now, how many open files each has, and who is full or deployed. Use for any 'do I have an adjuster', 'who's free', or 'who can take this' question about a region.",
             parameters: {
               type: 'object',
               properties: {
-                item: {
+                region: {
                   type: 'string',
-                  description: "The item the operator named, e.g. '3/8 torque wrench', '18 volt ratchet', '1/2 inch impact'."
+                  description: "The area the operator named, e.g. 'Fort Myers', 'Naples', 'Tampa'."
                 }
               },
-              required: ['item']
+              required: ['region']
             }
           },
           server: {
-            url: `${BACKEND_URL}/inventory-check`,
+            url: `${BACKEND_URL}/roster-check`,
             timeoutSeconds: 45
           }
         },
@@ -67,21 +67,21 @@ function assistantConfig(systemPrompt) {
           type: 'function',
           async: false,
           function: {
-            name: 'capture_order',
-            description: "Log a special order, follow-up, or note dictated by the operator while driving. Extract the customer, the item, the action (special order, follow-up, note), and any date. Item or action alone is enough. Use whenever the operator says to log, note, order, or follow up on something.",
+            name: 'capture_task',
+            description: "Log a follow-up, dispatch, or note dictated by the operator while driving. Extract the claim, the task, the action (order, follow up, dispatch, note), and any date. Task or action alone is enough. Use whenever the operator says to log, note, order, dispatch, or follow up on something.",
             parameters: {
               type: 'object',
               properties: {
-                customer: { type: 'string', description: "Customer the item is for, if named (e.g. 'Mike')." },
-                item: { type: 'string', description: "The product or thing involved (e.g. 'KRA roll cab')." },
-                action: { type: 'string', description: "What to do (e.g. 'special order', 'follow up', 'note')." },
+                claim: { type: 'string', description: "Claim the task is for, if named (e.g. 'GCC-2287' or 'the Calloway file')." },
+                task: { type: 'string', description: "The thing to do (e.g. 'order an engineer report')." },
+                action: { type: 'string', description: "What kind of action (e.g. 'order', 'follow up', 'dispatch', 'note')." },
                 date: { type: 'string', description: "Any timing the operator gave (e.g. 'next Tuesday')." }
               },
               required: []
             }
           },
           server: {
-            url: `${BACKEND_URL}/capture-order`,
+            url: `${BACKEND_URL}/capture-task`,
             timeoutSeconds: 45
           }
         }
@@ -126,14 +126,14 @@ async function configureAssistant() {
     }
 
     if (creating) {
-      console.log('In-Van Co-Pilot assistant CREATED.');
+      console.log('Voice Operating System assistant CREATED.');
       console.log(`Assistant ID: ${data.id}`);
       console.log('Add this to .env as INVAN_ASSISTANT_ID, and put it in index.html (APPS.invan.assistantId).');
     } else {
-      console.log('In-Van Co-Pilot assistant updated.');
+      console.log('Voice Operating System assistant updated.');
     }
     console.log('Backend:', BACKEND_URL);
-    console.log('Tools wired: pre_stop_briefing, inventory_check, capture_order');
+    console.log('Tools wired: claim_briefing, roster_check, capture_task');
   } catch (error) {
     console.error('Error:', error.message);
   }

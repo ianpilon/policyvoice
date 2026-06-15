@@ -1,0 +1,85 @@
+{
+  "clauses": [
+    {
+      "topic": "Mold, fungus, and wet rot exclusion",
+      "keywords": ["mold", "fungus", "fungi", "wet rot", "mildew", "spore"],
+      "form": "HO-3 base form HO 00 03",
+      "section": "Section I — Exclusions",
+      "page": 12,
+      "verbatim": "We do not insure for loss caused by mold, fungus or wet rot. This exclusion does not apply when mold, fungus or wet rot results from water damage that is otherwise covered under Section I of this policy.",
+      "endorsement_note": "Limited Fungi, Wet or Dry Rot, or Bacteria coverage may be added by endorsement HO 04 26, which sets a separate dollar limit. Check whether that endorsement is on this policy before quoting a limit."
+    },
+    {
+      "topic": "Wind-driven rain to interior",
+      "keywords": ["wind-driven", "wind driven", "rain", "interior", "snow", "sleet", "sand", "dust", "opening"],
+      "form": "HO-3 base form HO 00 03",
+      "section": "Section I — Perils Insured Against",
+      "page": 9,
+      "verbatim": "We do not insure for loss to the interior of a building, or property inside a building, caused by rain, snow, sleet, sand or dust, unless a covered peril first damages the building causing an opening through which the rain, snow, sleet, sand or dust enters.",
+      "endorsement_note": "Not modified by a standard endorsement. The base wording governs."
+    },
+    {
+      "topic": "Water below the surface and sewer or drain backup exclusion",
+      "keywords": ["sewer", "drain", "backup", "back-up", "back up", "water", "sump", "ground water", "flood", "surface water"],
+      "form": "HO-3 base form HO 00 03",
+      "section": "Section I — Exclusions, Water Damage",
+      "page": 11,
+      "verbatim": "We do not insure for loss caused directly or indirectly by water or water-borne material which backs up through sewers or drains, or which overflows or is discharged from a sump, sump pump or related equipment. Such loss is excluded regardless of any other cause or event contributing concurrently or in any sequence to the loss.",
+      "endorsement_note": "Coverage for sewer or drain backup can be added by the Water Back-Up and Sump Discharge or Overflow endorsement HO 04 95. If that endorsement is attached, it overrides this exclusion up to the limit shown."
+    },
+    {
+      "topic": "Anti-concurrent causation lead-in",
+      "keywords": ["concurrent", "anti-concurrent", "sequence", "contributing", "combination"],
+      "form": "HO-3 base form HO 00 03",
+      "section": "Section I — Exclusions, opening paragraph",
+      "page": 10,
+      "verbatim": "We do not insure for loss caused directly or indirectly by any of the following. Such loss is excluded regardless of any other cause or event contributing concurrently or in any sequence to the loss. These exclusions apply whether or not the loss event results in widespread damage or affects a substantial area.",
+      "endorsement_note": "This lead-in governs how the listed exclusions are read. It is not removed by endorsement."
+    },
+    {
+      "topic": "Hurricane deductible",
+      "keywords": ["hurricane", "deductible", "named storm", "windstorm", "percentage"],
+      "form": "HO-3 declarations and deductible schedule",
+      "section": "Deductible Provisions",
+      "page": 3,
+      "verbatim": "A separate hurricane deductible applies to loss caused by a hurricane. The hurricane deductible is the percentage shown in the Declarations, calculated on the Coverage A limit, and applies in place of, not in addition to, the all other perils deductible. The hurricane deductible applies to loss that occurs during the hurricane period as declared by the National Weather Service.",
+      "endorsement_note": "The applicable percentage and trigger are set on the Declarations page for the specific policy. Read the Declarations before quoting the dollar figure."
+    },
+    {
+      "topic": "Additional living expense and loss of use",
+      "keywords": ["additional living expense", "ale", "loss of use", "fair rental", "displaced", "temporary", "civil authority"],
+      "form": "HO-3 base form HO 00 03",
+      "section": "Coverage D — Loss Of Use",
+      "page": 7,
+      "verbatim": "If a loss covered under Section I makes that part of the residence premises where you reside not fit to live in, we cover the Additional Living Expense, meaning any necessary increase in living expenses incurred by you so that your household can maintain its normal standard of living. Payment will be for the shortest time required to repair or replace the damage or, if you permanently relocate, the shortest time required for your household to settle elsewhere.",
+      "endorsement_note": "Some policies add a civil authority extension by endorsement. Confirm whether one is attached."
+    },
+    {
+      "topic": "Ordinance or law",
+      "keywords": ["ordinance", "law", "building code", "code upgrade", "demolition", "undamaged"],
+      "form": "HO-3 base form HO 00 03",
+      "section": "Section I — Additional Coverages, Ordinance Or Law",
+      "page": 8,
+      "verbatim": "You may use up to 10% of the Coverage A limit of liability for the increased costs you incur due to the enforcement of any ordinance or law which requires or regulates the construction, demolition, remodeling, renovation or repair of that part of a covered building or other structure damaged by a Peril Insured Against.",
+      "endorsement_note": "The 10% can be increased by the Ordinance or Law Increased Amount endorsement HO 04 77. Check the Declarations for a higher percentage."
+    },
+    {
+      "topic": "Matching, pair and set, and undamaged property",
+      "keywords": ["matching", "match", "pair", "set", "undamaged", "uniform", "siding", "shingles"],
+      "form": "HO-3 base form HO 00 03",
+      "section": "Conditions — Loss Settlement and Pair Or Set",
+      "page": 14,
+      "verbatim": "In case of loss to a pair or set we may elect to repair or replace any part to restore the pair or set to its value before the loss, or pay the difference between the actual cash value of the property before and after the loss. We do not pay to replace undamaged property to achieve a uniform appearance.",
+      "endorsement_note": "A small number of state amendatory endorsements modify matching for roofing and siding. Check for a state-specific endorsement."
+    },
+    {
+      "topic": "Duties after loss",
+      "keywords": ["duties", "after loss", "proof of loss", "notice", "protect", "obligations", "claim"],
+      "form": "HO-3 base form HO 00 03",
+      "section": "Section I — Conditions, Your Duties After Loss",
+      "page": 13,
+      "verbatim": "In case of a loss to covered property, we have no duty to provide coverage under this policy if the failure to comply with the following duties is prejudicial to us. These duties must be performed either by you, an insured seeking coverage, or a representative of either: give prompt notice to us or our agent; protect the property from further damage; prepare an inventory of damaged personal property; and, within 60 days after our request, submit a signed, sworn proof of loss.",
+      "endorsement_note": "Not modified by a standard endorsement."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "endorsements": [
+    {
+      "name": "Water Back-Up and Sump Discharge or Overflow",
+      "form": "HO 04 95",
+      "keywords": ["water", "backup", "back-up", "back up", "sewer", "drain", "sump", "overflow", "discharge"],
+      "page": 1,
+      "verbatim": "We insure, up to the limit shown in the Schedule, for direct physical loss to covered property caused by water or water-borne material which backs up through sewers or drains, or which overflows or is discharged from a sump, sump pump or related equipment, even if such overflow or discharge results from mechanical breakdown. This coverage does not apply to loss caused by flood, surface water, or water below the surface of the ground.",
+      "modifies": "Overrides the sewer or drain backup exclusion in the base form, Section I Exclusions, page 11, up to the scheduled limit. It does not cover flood or surface water."
+    },
+    {
+      "name": "Roof Surfacing Cosmetic Damage Exclusion",
+      "form": "HO 04 (roof surfacing cosmetic)",
+      "keywords": ["roof", "surfacing", "cosmetic", "marring", "pitting", "hail", "wind", "shingles", "appearance"],
+      "page": 1,
+      "verbatim": "We will not pay for cosmetic damage to roof surfacing caused by hail or wind. Cosmetic damage means marring, pitting or other superficial damage that alters the appearance of the roof surfacing, but does not result in the failure of the roof surfacing to perform its function of keeping out water over the remaining useful life of the roof surfacing.",
+      "modifies": "Adds an exclusion the base form does not contain. Where it is attached, cosmetic-only roof damage is excluded even when wind or hail is a covered peril."
+    },
+    {
+      "name": "Roof Surfacing Payment Schedule (Actual Cash Value)",
+      "form": "HO 04 (roof ACV schedule)",
+      "keywords": ["roof", "actual cash value", "acv", "depreciation", "payment schedule", "age", "replacement cost"],
+      "page": 1,
+      "verbatim": "Notwithstanding any replacement cost provision in this policy, loss to roof surfacing caused by wind or hail will be settled at actual cash value, determined by applying the percentage shown in the Roof Surfacing Payment Schedule for the age and type of the roof surfacing at the time of loss.",
+      "modifies": "Overrides replacement cost loss settlement for the roof only. Read the attached schedule for the percentage that applies to the roof's age and type."
+    },
+    {
+      "name": "Ordinance or Law Increased Amount of Coverage",
+      "form": "HO 04 77",
+      "keywords": ["ordinance", "law", "code", "increased", "demolition", "upgrade"],
+      "page": 1,
+      "verbatim": "The Ordinance or Law Additional Coverage in the policy is increased to the percentage of the Coverage A limit of liability shown in the Schedule. This percentage replaces the 10% stated in the base policy.",
+      "modifies": "Replaces the 10% ordinance or law amount in the base form, Section I Additional Coverages, page 8, with the scheduled percentage."
+    },
+    {
+      "name": "Limited Fungi, Wet or Dry Rot, or Bacteria",
+      "form": "HO 04 26",
+      "keywords": ["mold", "fungi", "fungus", "rot", "bacteria", "remediation", "limit"],
+      "page": 1,
+      "verbatim": "We provide coverage, up to the aggregate sublimit shown in the Schedule, for loss caused by fungi, wet or dry rot, or bacteria, including the cost to remove the fungi, wet or dry rot, or bacteria from covered property and the cost to tear out and replace any part of the building needed to gain access to it, when the fungi, wet or dry rot, or bacteria results from a Peril Insured Against.",
+      "modifies": "Provides a capped amount of coverage related to the base form mold exclusion, Section I Exclusions, page 12. The Schedule sublimit is the most we pay."
+    },
+    {
+      "name": "Windstorm or Hail Percentage Deductible",
+      "form": "HO 03 12 (windstorm or hail deductible)",
+      "keywords": ["windstorm", "hail", "deductible", "percentage", "wind"],
+      "page": 1,
+      "verbatim": "A windstorm or hail deductible applies to each loss caused by windstorm or hail. The deductible is the percentage of the Coverage A limit of liability shown in the Declarations, and applies in place of the all other perils deductible for any loss caused by windstorm or hail.",
+      "modifies": "Replaces the flat all-other-perils deductible for wind or hail losses. The percentage is on the Declarations page."
+    }
+  ]
+}

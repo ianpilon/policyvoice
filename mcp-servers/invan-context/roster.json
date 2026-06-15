@@ -1,0 +1,10 @@
+{
+  "adjusters": [
+    { "name": "Marcus Reed", "region": "Fort Myers", "status": "full", "open_files": 30, "max_files": 30, "licenses": "Florida", "note": "At capacity. Don't assign more this week." },
+    { "name": "Dana Ortiz", "region": "Fort Myers", "status": "available", "open_files": 2, "max_files": 25, "licenses": "Florida", "note": "Just rolled off two files. Ready for storm work." },
+    { "name": "Priya Shah", "region": "Fort Myers", "status": "available", "open_files": 1, "max_files": 25, "licenses": "Florida and Georgia", "note": "Licensed across two states, good for the Georgia overflow too." },
+    { "name": "Hector Villanueva", "region": "Naples", "status": "available", "open_files": 6, "max_files": 25, "licenses": "Florida", "note": "Strong on roof and hail claims." },
+    { "name": "Janelle Carter", "region": "Naples", "status": "deployed", "open_files": 22, "max_files": 25, "licenses": "Florida and Louisiana", "note": "Heavy load but can take one more if it's urgent." },
+    { "name": "Tom Bergeron", "region": "Tampa", "status": "available", "open_files": 4, "max_files": 25, "licenses": "Florida", "note": "Can drive south if Fort Myers runs short." }
+  ]
+}
