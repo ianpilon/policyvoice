@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: shopvoice-invan-backend
+    name: policyvoice
     runtime: node
     plan: free
     buildCommand: npm install
