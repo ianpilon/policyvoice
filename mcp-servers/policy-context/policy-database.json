@@ -1,85 +1,85 @@
 {
   "clauses": [
     {
-      "topic": "Mold, fungus, and wet rot exclusion",
-      "keywords": ["mold", "fungus", "fungi", "wet rot", "mildew", "spore"],
-      "form": "HO-3 base form HO 00 03",
-      "section": "Section I — Exclusions",
-      "page": 12,
-      "verbatim": "We do not insure for loss caused by mold, fungus or wet rot. This exclusion does not apply when mold, fungus or wet rot results from water damage that is otherwise covered under Section I of this policy.",
-      "endorsement_note": "Limited Fungi, Wet or Dry Rot, or Bacteria coverage may be added by endorsement HO 04 26, which sets a separate dollar limit. Check whether that endorsement is on this policy before quoting a limit."
+      "topic": "All-risks insuring agreement",
+      "keywords": ["all risk", "all risks", "insuring agreement", "insuring", "comprehensive form", "broad form"],
+      "form": "SE Mutual Homeowner's Package Policy - Comprehensive Form",
+      "section": "Section I, Comprehensive Form, insuring agreement",
+      "page": 17,
+      "verbatim": "We insure your dwelling, detached private structures, and your personal property against all risks of direct physical loss or damage subject to the terms, conditions, and exclusions below.",
+      "endorsement_note": "This is an all-risks form: coverage is broad, but the Perils Excluded list and any Restriction of Coverage endorsements on the Declaration Page carve coverage back. Check those before relying on this."
     },
     {
-      "topic": "Wind-driven rain to interior",
-      "keywords": ["wind-driven", "wind driven", "rain", "interior", "snow", "sleet", "sand", "dust", "opening"],
-      "form": "HO-3 base form HO 00 03",
-      "section": "Section I — Perils Insured Against",
-      "page": 9,
-      "verbatim": "We do not insure for loss to the interior of a building, or property inside a building, caused by rain, snow, sleet, sand or dust, unless a covered peril first damages the building causing an opening through which the rain, snow, sleet, sand or dust enters.",
-      "endorsement_note": "Not modified by a standard endorsement. The base wording governs."
+      "topic": "Water damage and sewer or drain backup exclusion",
+      "keywords": ["water", "sewer", "drain", "backup", "back-up", "back up", "sump", "septic", "seepage", "ground water", "surface water", "eavestrough", "downspout"],
+      "form": "SE Mutual Homeowner's Package Policy - Comprehensive Form",
+      "section": "Section I, Perils Excluded, item 17",
+      "page": 19,
+      "verbatim": "by water unless the loss or damage directly resulted from: a) the sudden and accidental escape of water from within a water main, swimming pool or equipment attached; b) the sudden and accidental escape of water or steam from within a heating, sprinkler, air conditioning or plumbing system, or domestic water containers which is located inside your dwelling or detached private structure; c) water which enters through an opening which has been created suddenly and accidentally by an insured peril; d) water from the accumulation of ice or snow on the roof or eavestrough, which enters the dwelling through the roof as a result of ice damming. But we do not insure loss or damage: a) by continuous or repeated seepage or leakage of water; b) by backing up or escape of water from a sewer or drain, sump or septic tank, eavestrough, or downspout; c) by ground water or rising of the water table; d) by surface waters, unless the water escapes from a watermain or swimming pool.",
+      "endorsement_note": "Backing up or escape of water from a sewer or drain, sump or septic can be added back by the Sewer Backup Endorsement EO-1025-0716, page 71, when it is shown on the Declaration Page."
     },
     {
-      "topic": "Water below the surface and sewer or drain backup exclusion",
-      "keywords": ["sewer", "drain", "backup", "back-up", "back up", "water", "sump", "ground water", "flood", "surface water"],
-      "form": "HO-3 base form HO 00 03",
-      "section": "Section I — Exclusions, Water Damage",
-      "page": 11,
-      "verbatim": "We do not insure for loss caused directly or indirectly by water or water-borne material which backs up through sewers or drains, or which overflows or is discharged from a sump, sump pump or related equipment. Such loss is excluded regardless of any other cause or event contributing concurrently or in any sequence to the loss.",
-      "endorsement_note": "Coverage for sewer or drain backup can be added by the Water Back-Up and Sump Discharge or Overflow endorsement HO 04 95. If that endorsement is attached, it overrides this exclusion up to the limit shown."
+      "topic": "Flood and waves exclusion",
+      "keywords": ["flood", "waves", "tidal", "overflow", "storm surge", "body of water"],
+      "form": "SE Mutual Homeowner's Package Policy - Comprehensive Form",
+      "section": "Section I, Perils Excluded, item 18",
+      "page": 19,
+      "verbatim": "by waves or floods, all whether driven by wind or not;",
+      "endorsement_note": "Flood is not added back by the Sewer Backup Endorsement, which expressly excludes flood and coastal flooding."
     },
     {
-      "topic": "Anti-concurrent causation lead-in",
-      "keywords": ["concurrent", "anti-concurrent", "sequence", "contributing", "combination"],
-      "form": "HO-3 base form HO 00 03",
-      "section": "Section I — Exclusions, opening paragraph",
-      "page": 10,
-      "verbatim": "We do not insure for loss caused directly or indirectly by any of the following. Such loss is excluded regardless of any other cause or event contributing concurrently or in any sequence to the loss. These exclusions apply whether or not the loss event results in widespread damage or affects a substantial area.",
-      "endorsement_note": "This lead-in governs how the listed exclusions are read. It is not removed by endorsement."
+      "topic": "Wind-driven rain and storm damage to interior",
+      "keywords": ["wind-driven", "wind driven", "rain", "interior", "windstorm", "hail", "coincidental", "opening", "storm"],
+      "form": "SE Mutual Homeowner's Package Policy - Comprehensive Form",
+      "section": "Section I, Perils Excluded, item 19",
+      "page": 19,
+      "verbatim": "to the interior of a building or your personal property within a building, caused by windstorm, hail or coincidental rain damage unless the storm first creates an opening in the dwelling or detached private structure;",
+      "endorsement_note": "Not modified by an endorsement. If a Restriction of Coverage - Roof Endorsement is on the Declaration Page, roof and resulting interior damage from windstorm or hail are excluded entirely."
     },
     {
-      "topic": "Hurricane deductible",
-      "keywords": ["hurricane", "deductible", "named storm", "windstorm", "percentage"],
-      "form": "HO-3 declarations and deductible schedule",
-      "section": "Deductible Provisions",
-      "page": 3,
-      "verbatim": "A separate hurricane deductible applies to loss caused by a hurricane. The hurricane deductible is the percentage shown in the Declarations, calculated on the Coverage A limit, and applies in place of, not in addition to, the all other perils deductible. The hurricane deductible applies to loss that occurs during the hurricane period as declared by the National Weather Service.",
-      "endorsement_note": "The applicable percentage and trigger are set on the Declarations page for the specific policy. Read the Declarations before quoting the dollar figure."
+      "topic": "Fungi, mould, wet or dry rot exclusion",
+      "keywords": ["mould", "mold", "fungi", "fungus", "spore", "wet rot", "dry rot", "rot", "dampness", "condensation", "rust", "corrosion", "deterioration"],
+      "form": "SE Mutual Homeowner's Package Policy - Comprehensive Form",
+      "section": "Section I, Perils Excluded, item 5",
+      "page": 18,
+      "verbatim": "by wear, tear, gradual deterioration, inherent vice, latent defect or mechanical breakdown, rust, corrosion, extremes of temperature, wet or dry rot, condensation, dampness of atmosphere, fungi or spore(s) or contamination;",
+      "endorsement_note": "There is no separate mould limited-coverage endorsement in this manual. Mould or rot is excluded as a peril; resulting damage from a separately insured peril is assessed on its own."
+    },
+    {
+      "topic": "By-law, ordinance, and increased cost of construction exclusion",
+      "keywords": ["by-law", "bylaw", "ordinance", "law", "zoning", "demolition", "code", "increased cost", "construction", "building code"],
+      "form": "SE Mutual Homeowner's Package Policy - Comprehensive Form",
+      "section": "Section I, Perils Excluded, item 9",
+      "page": 18,
+      "verbatim": "because of increased costs of repair or replacement due to the operation of any law regulating the zoning, demolition, repair or construction of buildings and their related services;",
+      "endorsement_note": "These increased costs can be added back by the Building By-Law Coverage Endorsement EO-0600-0113, page 38, when it is shown on the Declaration Page."
     },
     {
       "topic": "Additional living expense and loss of use",
-      "keywords": ["additional living expense", "ale", "loss of use", "fair rental", "displaced", "temporary", "civil authority"],
-      "form": "HO-3 base form HO 00 03",
-      "section": "Coverage D — Loss Of Use",
-      "page": 7,
-      "verbatim": "If a loss covered under Section I makes that part of the residence premises where you reside not fit to live in, we cover the Additional Living Expense, meaning any necessary increase in living expenses incurred by you so that your household can maintain its normal standard of living. Payment will be for the shortest time required to repair or replace the damage or, if you permanently relocate, the shortest time required for your household to settle elsewhere.",
-      "endorsement_note": "Some policies add a civil authority extension by endorsement. Confirm whether one is attached."
+      "keywords": ["additional living expense", "ale", "loss of use", "unfit", "move out", "fair rental", "displaced", "civil authority", "evacuation"],
+      "form": "SE Mutual Homeowner's Package Policy - Comprehensive Form",
+      "section": "Coverage D, Additional Living Expenses, item 1",
+      "page": 12,
+      "verbatim": "ADDITIONAL LIVING EXPENSE: If damage to your dwelling by an insured peril makes it unfit for occupancy and you have to move out while repairs are being made, we insure any necessary increase in living expenses including moving expenses incurred by you, so that your household can maintain its normal standard of living. Payment shall be for the reasonable time required to repair or rebuild your dwelling or, if you permanently relocate, the reasonable time required for your household to settle elsewhere.",
+      "endorsement_note": "Coverage D also includes Fair Rental Value, Civil Authority Prohibits Access (30 days), and Emergency Evacuation (30 days or $5,000, whichever is less), all on page 12."
     },
     {
-      "topic": "Ordinance or law",
-      "keywords": ["ordinance", "law", "building code", "code upgrade", "demolition", "undamaged"],
-      "form": "HO-3 base form HO 00 03",
-      "section": "Section I — Additional Coverages, Ordinance Or Law",
-      "page": 8,
-      "verbatim": "You may use up to 10% of the Coverage A limit of liability for the increased costs you incur due to the enforcement of any ordinance or law which requires or regulates the construction, demolition, remodeling, renovation or repair of that part of a covered building or other structure damaged by a Peril Insured Against.",
-      "endorsement_note": "The 10% can be increased by the Ordinance or Law Increased Amount endorsement HO 04 77. Check the Declarations for a higher percentage."
+      "topic": "Basis of claim payment and deductible",
+      "keywords": ["deductible", "claim payment", "basis", "occurrence", "amount of insurance", "how much"],
+      "form": "SE Mutual Homeowner's Package Policy - Comprehensive Form",
+      "section": "Basis of Claim Payment, Section I",
+      "page": 21,
+      "verbatim": "Deductible: In any one occurrence, we are responsible only for the amount by which the insured loss or damage exceeds the amount of the deductible shown on the Declaration Page. If one occurrence could lead to the application of more than one deductible, only the largest deductible will apply.",
+      "endorsement_note": "The deductible amount itself is on the Declaration Page for the specific policy. Read the Declaration Page before quoting a dollar figure."
     },
     {
-      "topic": "Matching, pair and set, and undamaged property",
-      "keywords": ["matching", "match", "pair", "set", "undamaged", "uniform", "siding", "shingles"],
-      "form": "HO-3 base form HO 00 03",
-      "section": "Conditions — Loss Settlement and Pair Or Set",
-      "page": 14,
-      "verbatim": "In case of loss to a pair or set we may elect to repair or replace any part to restore the pair or set to its value before the loss, or pay the difference between the actual cash value of the property before and after the loss. We do not pay to replace undamaged property to achieve a uniform appearance.",
-      "endorsement_note": "A small number of state amendatory endorsements modify matching for roofing and siding. Check for a state-specific endorsement."
-    },
-    {
-      "topic": "Duties after loss",
-      "keywords": ["duties", "after loss", "proof of loss", "notice", "protect", "obligations", "claim"],
-      "form": "HO-3 base form HO 00 03",
-      "section": "Section I — Conditions, Your Duties After Loss",
-      "page": 13,
-      "verbatim": "In case of a loss to covered property, we have no duty to provide coverage under this policy if the failure to comply with the following duties is prejudicial to us. These duties must be performed either by you, an insured seeking coverage, or a representative of either: give prompt notice to us or our agent; protect the property from further damage; prepare an inventory of damaged personal property; and, within 60 days after our request, submit a signed, sworn proof of loss.",
-      "endorsement_note": "Not modified by a standard endorsement."
+      "topic": "Requirements after loss, proof of loss and duties",
+      "keywords": ["duties", "after loss", "proof of loss", "requirements", "notice", "inventory", "statutory", "obligations", "claim"],
+      "form": "SE Mutual Homeowner's Package Policy - Statutory Conditions",
+      "section": "Section III, Statutory Condition 6, Requirements After Loss",
+      "page": 33,
+      "verbatim": "Upon the occurrence of any loss of or damage to the insured property, the Insured shall, if the loss or damage is covered by the contract, in addition to observing the requirements of conditions 9, 10, and 11: a) forthwith give notice thereof in writing to the Insurer; b) deliver as soon as practicable to the Insurer a proof of loss verified by a statutory declaration, giving a complete inventory of the destroyed and damaged property and showing in detail quantities, costs, actual cash value, and particulars of amount of loss claimed, and stating when and how the loss occurred.",
+      "endorsement_note": "Statutory Condition 8 lets the Agent or Broker give notice and make proof of loss if the Insured is absent or unable."
     }
   ]
 }

@@ -28,7 +28,7 @@ Browser (index.html, Vapi Web SDK tap-to-talk)
 |---|---|
 | `POST /lookup-coverage` | Find the policy clause for a topic; return the exact wording with form, section, and page. |
 | `POST /lookup-endorsement` | Find an endorsement/add-on by topic; return its exact wording and how it modifies the base form. |
-| `POST /search-policy` | Keyword-scored search over full policy form docs (HO-3, BOP, flood), chunked on `##` / `###` headers. |
+| `POST /search-policy` | Keyword-scored search over the full policy sections (Section I, III, IV/V), chunked on `##` / `###` headers. |
 
 **Voice Operating System**
 
@@ -47,15 +47,17 @@ Browser (index.html, Vapi Web SDK tap-to-talk)
 | `GET /data/clauses` `/data/endorsements` `/data/policy-forms` | Read-only views of the PolicyVoice corpus. |
 | `GET /data/claims` `/data/roster` `/data/tasks` | Read-only views of the Voice Operating System data. |
 
-### Demo corpus (stand-in, standard-form-style wording, not a real insurer's forms)
+### Corpus
 
-- `mcp-servers/policy-context/policy-database.json` — ~9 common coverage clauses (mold, wind-driven rain, water/sewer backup, anti-concurrent causation, hurricane deductible, loss of use, ordinance or law, matching, duties after loss).
-- `mcp-servers/endorsement-context/endorsement-database.json` — ~6 endorsements (water back-up, roof surfacing cosmetic, roof ACV schedule, ordinance or law increase, limited mold, windstorm/hail deductible).
-- `mcp-servers/policy-forms/` — 3 policy form docs (HO-3 homeowners, businessowners BOP, standard flood).
-- `mcp-servers/invan-context/claims.json` — 3 open storm claim files.
-- `mcp-servers/invan-context/roster.json` — 6 adjusters across three regions.
+PolicyVoice reads from a real document: the **SE Mutual Homeowner's Package Policy (Comprehensive Form)**, an all-risks homeowner's policy. The wording and page numbers in the corpus are taken from that PDF, so the agent's quotes and citations match the source.
 
-Policy wording is standard-form-style, used as a stand-in. The point is the pattern, not any one carrier's exact text.
+- `mcp-servers/policy-context/policy-database.json` — 9 indexed coverage clauses (all-risks insuring agreement, water/sewer backup, flood & waves, wind-driven rain to interior, fungi & mould, by-law/increased cost, additional living expense, basis of claim payment & deductible, requirements after loss) with verbatim text and the section + page each came from.
+- `mcp-servers/endorsement-context/endorsement-database.json` — 5 endorsements/restrictions (Sewer Backup EO-1025-0716, Building By-Law EO-0600-0113, and the Restriction of Coverage endorsements for roof, ice damming, collapse).
+- `mcp-servers/policy-forms/` — full policy sections chunked on `##` headers (Section I property coverage, Section III statutory conditions, Section IV/V restrictions & endorsements).
+- `mcp-servers/invan-context/claims.json` — 3 open storm claim files (Voice Operating System).
+- `mcp-servers/invan-context/roster.json` — 6 adjusters across three regions (Voice Operating System).
+
+To swap in a different policy: re-extract the PDF text (e.g. `pdftotext -layout`), update the JSON clauses/endorsements with verbatim wording + page numbers, replace the `policy-forms/*.md` sections, then `POST /reload`.
 
 ## Setup
 

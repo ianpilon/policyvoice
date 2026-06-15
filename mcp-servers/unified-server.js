@@ -89,7 +89,7 @@ app.post('/lookup-coverage', (req, res) => {
   if (!clause) {
     console.log('   ❌ Not found');
     return vapiResult(res, toolCallId,
-      `I don't have a clause on that in this demo policy library. It covers mold and fungi, wind-driven rain, water and sewer backup, anti-concurrent causation, hurricane deductible, loss of use, ordinance or law, matching and pair or set, and duties after loss.`);
+      `I don't have a clause on that in this policy. The SE Mutual Homeowner's Package covers the all-risks insuring agreement, water and sewer backup, flood and waves, wind-driven rain to the interior, fungi and mould, by-law and increased cost of construction, additional living expense, basis of claim payment and deductible, and requirements after loss.`);
   }
 
   console.log(`   ✅ Found clause: ${clause.topic}`);
@@ -160,7 +160,7 @@ app.post('/lookup-endorsement', (req, res) => {
 
   if (results.length === 0) {
     return vapiResult(res, toolCallId,
-      'No endorsement on that in this demo library. It covers water back-up and sump overflow, roof surfacing cosmetic damage, roof surfacing actual cash value, ordinance or law increased amount, limited fungi or mold, and windstorm or hail percentage deductible.');
+      "No endorsement on that in this policy. The SE Mutual Homeowner's Package includes the Sewer Backup Endorsement, the Building By-Law Coverage Endorsement, and the Restriction of Coverage endorsements for roof, ice damming, and collapse.");
   }
 
   console.log(`   ✅ Found ${results.length} endorsements`);
@@ -271,7 +271,7 @@ app.post('/search-policy', (req, res) => {
   if (results.length === 0) {
     console.log('   ❌ No relevant policy sections found');
     return vapiResult(res, toolCallId,
-      'No matching section in this demo policy library. It covers the HO-3 homeowners form, the businessowners (BOP) form, and the standard flood policy.');
+      "No matching section in this policy. The SE Mutual Homeowner's Package covers Section I property coverage, Section III statutory conditions, and Section IV and V restrictions and endorsements.");
   }
 
   // Combine results into single-line text (Vapi requirement: no line breaks)

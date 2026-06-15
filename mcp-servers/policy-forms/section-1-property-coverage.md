@@ -1,0 +1,25 @@
+# SE Mutual Homeowner's Package Policy — Comprehensive Form (Section I — Property Coverage)
+
+## Coverage D — Additional Living Expenses (page 12)
+ADDITIONAL LIVING EXPENSE: If damage to your dwelling by an insured peril makes it unfit for occupancy and you have to move out while repairs are being made, we insure any necessary increase in living expenses including moving expenses incurred by you, so that your household can maintain its normal standard of living. Payment shall be for the reasonable time required to repair or rebuild your dwelling or, if you permanently relocate, the reasonable time required for your household to settle elsewhere. FAIR RENTAL VALUE: If damage to your dwelling or detached private structures by an insured peril makes that part rented to others or held for rental unfit for occupancy, we insure its Fair Rental Value. CIVIL AUTHORITY PROHIBITS ACCESS: If, as the direct result of damage to neighbouring premises by an insured peril, a civil authority prohibits access to your dwelling, we insure any resulting Additional Living Expense and Fair Rental Value for a period not exceeding thirty (30) days. EMERGENCY EVACUATION: We will pay any necessary and reasonable increase in living expense incurred while access is prohibited by order of civil authority given for evacuation as a direct result of a sudden and accidental emergency, for a period not exceeding thirty (30) days, or $5,000, whichever is the lesser.
+
+## Additional Coverage — Tear Out for water damage (page 13)
+TEAR OUT: If any walls, ceilings, or other parts of insured buildings or structures must be torn apart before water damage from a plumbing, heating, air conditioning or sprinkler system or domestic water containers can be repaired, we will pay the cost of such repairs. The cost of tearing out and replacing property to repair damage related to domestic water containers, including swimming pools, spas, hot tubs, or any water main is not insured.
+
+## Comprehensive Form — insuring agreement (page 17)
+We insure your dwelling, detached private structures, and your personal property against all risks of direct physical loss or damage subject to the terms, conditions, and exclusions below.
+
+## Perils Excluded — fungi, mould, wet or dry rot (Section I, item 5, page 18)
+We do not insure loss or damage resulting from, contributed to, or caused directly or indirectly by wear, tear, gradual deterioration, inherent vice, latent defect or mechanical breakdown, rust, corrosion, extremes of temperature, wet or dry rot, condensation, dampness of atmosphere, fungi or spore(s) or contamination.
+
+## Perils Excluded — by-law and increased cost of construction (Section I, item 9, page 18)
+We do not insure loss or damage because of increased costs of repair or replacement due to the operation of any law regulating the zoning, demolition, repair or construction of buildings and their related services.
+
+## Perils Excluded — water and sewer or drain backup (Section I, item 17, page 19)
+We do not insure loss or damage by water unless the loss or damage directly resulted from: a) the sudden and accidental escape of water from within a water main, swimming pool or equipment attached; b) the sudden and accidental escape of water or steam from within a heating, sprinkler, air conditioning or plumbing system, or domestic water containers which is located inside your dwelling or detached private structure; c) water which enters through an opening which has been created suddenly and accidentally by an insured peril; d) water from the accumulation of ice or snow on the roof or eavestrough, which enters the dwelling through the roof as a result of ice damming. But we do not insure loss or damage: a) by continuous or repeated seepage or leakage of water; b) by backing up or escape of water from a sewer or drain, sump or septic tank, eavestrough, or downspout; c) by ground water or rising of the water table; d) by surface waters, unless the water escapes from a watermain or swimming pool.
+
+## Perils Excluded — flood, waves, and wind-driven rain to interior (Section I, items 18-19, page 19)
+We do not insure loss or damage by waves or floods, all whether driven by wind or not. We do not insure loss or damage to the interior of a building or your personal property within a building, caused by windstorm, hail or coincidental rain damage unless the storm first creates an opening in the dwelling or detached private structure.
+
+## Basis of Claim Payment and Deductible (Section I, page 21)
+When coverage applies, we will pay for insured loss or damage up to your financial interest in the property but not exceeding the applicable amount(s) of insurance for any loss or damage arising out of one occurrence. Deductible: In any one occurrence, we are responsible only for the amount by which the insured loss or damage exceeds the amount of the deductible shown on the Declaration Page. If one occurrence could lead to the application of more than one deductible, only the largest deductible will apply.

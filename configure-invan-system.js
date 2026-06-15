@@ -7,11 +7,11 @@ const BACKEND_URL = process.argv[2] || 'https://shopvoice-invan-backend.onrender
 function assistantConfig(systemPrompt) {
   return {
     name: 'Voice Operating System',
-    firstMessage: "Voice Operating System here. Want a briefing on a claim file, an adjuster check for an area, or should I log a follow-up?",
+    firstMessage: "Hi, this is the Voice Operating System. What do you need, a claim briefing, an adjuster check for an area, or a follow-up logged?",
     model: {
       provider: 'openai',
       model: 'gpt-4o',
-      temperature: 0.5,
+      temperature: 0.3,
       messages: [
         {
           role: 'system',
@@ -36,6 +36,9 @@ function assistantConfig(systemPrompt) {
               required: ['claim']
             }
           },
+          messages: [
+            { type: 'request-start', content: 'One moment, pulling that file.' }
+          ],
           server: {
             url: `${BACKEND_URL}/briefing`,
             timeoutSeconds: 45
@@ -58,6 +61,9 @@ function assistantConfig(systemPrompt) {
               required: ['region']
             }
           },
+          messages: [
+            { type: 'request-start', content: 'One moment, checking the roster.' }
+          ],
           server: {
             url: `${BACKEND_URL}/roster-check`,
             timeoutSeconds: 45
@@ -80,6 +86,9 @@ function assistantConfig(systemPrompt) {
               required: []
             }
           },
+          messages: [
+            { type: 'request-start', content: 'One moment, logging that.' }
+          ],
           server: {
             url: `${BACKEND_URL}/capture-task`,
             timeoutSeconds: 45

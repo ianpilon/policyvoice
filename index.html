@@ -377,9 +377,9 @@
 
             <div class="try-label">Try asking</div>
             <div class="chips">
-              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Is mold cleanup covered when the water came from a sewer backup?"</button>
-              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Read me the wind-driven rain exclusion on the HO-3 form."</button>
-              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Does the roof surfacing endorsement change the cosmetic damage exclusion?"</button>
+              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Is mould cleanup covered when the water came from a sewer backup?"</button>
+              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Read me the wind-driven rain exclusion for the interior."</button>
+              <button class="chip" onclick="chipTap('shopvoice')"><span class="q">Q</span>"Does the Sewer Backup Endorsement add that coverage back?"</button>
             </div>
           </div>
 
@@ -429,9 +429,9 @@
               <div class="phone-tray">
                 <div class="tray-label">Tap to send a text</div>
                 <div class="tray-chips" id="sv-trayChips">
-                  <button class="tray-chip" onclick="sendSim('shopvoice', 0)"><span class="q">Q</span>Is mold cleanup covered when the water came from a sewer backup?</button>
-                  <button class="tray-chip" onclick="sendSim('shopvoice', 1)"><span class="q">Q</span>Read me the wind-driven rain exclusion on the HO-3.</button>
-                  <button class="tray-chip" onclick="sendSim('shopvoice', 2)"><span class="q">Q</span>Does the roof surfacing endorsement change the cosmetic exclusion?</button>
+                  <button class="tray-chip" onclick="sendSim('shopvoice', 0)"><span class="q">Q</span>Is mould cleanup covered when the water came from a sewer backup?</button>
+                  <button class="tray-chip" onclick="sendSim('shopvoice', 1)"><span class="q">Q</span>Read me the wind-driven rain exclusion for the interior.</button>
+                  <button class="tray-chip" onclick="sendSim('shopvoice', 2)"><span class="q">Q</span>Does the Sewer Backup Endorsement add that coverage back?</button>
                 </div>
               </div>
             </div>
@@ -616,7 +616,7 @@
   <footer>
     <div class="wrap footer-inner">
       <span>A working demo by Ian Pilon · <a href="mailto:ianpilon@gmail.com">ianpilon@gmail.com</a></span>
-      <span class="footer-demo-note">demo data only · stand-in policy wording, not a real insurer's forms</span>
+      <span class="footer-demo-note">demo · reads verbatim from a sample SE Mutual homeowner's policy wording</span>
     </div>
   </footer>
 
@@ -633,7 +633,7 @@
         wordmark: '<img class="brand-logo" src="assets/gulf-coast-claims-logo.png" alt="Gulf Coast Claims" /><span class="brand-name">Policy<span class="vc">Voice</span></span>',
         speaker: "PolicyVoice",
         userLabel: "Adjuster",
-        assistantId: "383bdcd9-cd6c-4840-a9fb-505bb64daf27",
+        assistantId: "aaadf407-d963-42d7-9af9-94a165998c80",
         toolLabels: {
           lookup_coverage: "POLICY FORMS",
           lookup_endorsement: "ENDORSEMENTS",
@@ -646,18 +646,18 @@
           chatHint: "sv-chatHint", trayChips: "sv-trayChips"
         },
         sims: [
-          { q: "Is mold cleanup covered when the water came from a sewer backup?",
+          { q: "Is mould cleanup covered when the water came from a sewer backup?",
             lookup: "Policy forms",
-            a: "Reading the base form, Section I Exclusions, page 12, quote: We do not insure for loss caused by mold, fungus or wet rot. This exclusion does not apply when mold, fungus or wet rot results from water damage that is otherwise covered under Section I, end quote. Whether the sewer backup itself is covered turns on the Water Back-Up endorsement. I can read that next. I'm not making the coverage call.",
-            cite: "Source: HO-3 base form HO 00 03 · p.12, §I Exclusions · verbatim" },
-          { q: "Read me the wind-driven rain exclusion on the HO-3.",
+            a: "Two parts, read as written. Section I, Perils Excluded, item 17, page 19, quote: But we do not insure loss or damage by backing up or escape of water from a sewer or drain, sump or septic tank, eavestrough, or downspout, end quote. And mould is separately excluded at item 5, page 18. Whether the backup water is added back turns on the Sewer Backup Endorsement. I can read that next. I'm not making the coverage call.",
+            cite: "Source: SE Mutual Comprehensive Form · Section I, Perils Excluded, items 17 and 5 · p.18 to 19 · verbatim" },
+          { q: "Read me the wind-driven rain exclusion for the interior.",
             lookup: "Policy forms",
-            a: "HO-3, Section I, page 9, quote: We do not insure for loss to the interior of a building, or property inside a building, caused by rain, snow, sleet, sand or dust, unless a covered peril first damages the building causing an opening through which the rain, snow, sleet, sand or dust enters, end quote. That's the clause, word for word.",
-            cite: "Source: HO-3 base form HO 00 03 · p.9, §I-2 · verbatim" },
-          { q: "Does the roof surfacing endorsement change the cosmetic exclusion?",
+            a: "Section I, Perils Excluded, item 19, page 19, quote: to the interior of a building or your personal property within a building, caused by windstorm, hail or coincidental rain damage unless the storm first creates an opening in the dwelling or detached private structure, end quote. That's the clause, word for word.",
+            cite: "Source: SE Mutual Comprehensive Form · Section I, Perils Excluded, item 19 · p.19 · verbatim" },
+          { q: "Does the Sewer Backup Endorsement add that coverage back?",
             lookup: "Endorsements",
-            a: "Yes, an endorsement is attached and it modifies the base form. Roof Surfacing Cosmetic Damage Exclusion, page 1, quote: We will not pay for cosmetic damage to roof surfacing caused by hail or wind. Cosmetic damage means marring, pitting or other superficial damage that alters the appearance of the roof surfacing but does not result in the failure of the roof surfacing to perform its function of keeping out water, end quote. This adds an exclusion the base form does not contain.",
-            cite: "Source: Endorsement HO 04 — Roof Surfacing Cosmetic · p.1 · modifies base form" }
+            a: "Yes, when it's shown on the Declaration Page. Sewer Backup Endorsement EO-1025-0716, page 71, quote: You are insured against direct physical loss or damage to insured property caused by the sudden and accidental backing up or escape of water or sewage within your dwelling or detached private structures on your premises from a sewer, septic system, sump pit or drain, end quote. It still excludes flood and surface water, and it's subject to the Declaration Page limit.",
+            cite: "Source: SE Mutual Sewer Backup Endorsement EO-1025-0716 · p.71 · modifies base form" }
         ],
         simBusy: false, simStarted: false
       },
@@ -666,7 +666,7 @@
         wordmark: '<img class="brand-logo" src="assets/gulf-coast-claims-logo.png" alt="Gulf Coast Claims" /><span class="brand-name"><span class="vc">Voice</span> Operating System</span>',
         speaker: "Voice OS",
         userLabel: "Operator",
-        assistantId: "4da59ae1-e4a3-4b7d-9a4f-f2a7788218a5",
+        assistantId: "6a919715-972e-4993-a145-3ec11c668a36",
         toolLabels: {
           claim_briefing: "CLAIM FILES",
           roster_check: "ADJUSTER ROSTER",

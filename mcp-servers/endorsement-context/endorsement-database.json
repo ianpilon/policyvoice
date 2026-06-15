@@ -1,52 +1,44 @@
 {
   "endorsements": [
     {
-      "name": "Water Back-Up and Sump Discharge or Overflow",
-      "form": "HO 04 95",
-      "keywords": ["water", "backup", "back-up", "back up", "sewer", "drain", "sump", "overflow", "discharge"],
-      "page": 1,
-      "verbatim": "We insure, up to the limit shown in the Schedule, for direct physical loss to covered property caused by water or water-borne material which backs up through sewers or drains, or which overflows or is discharged from a sump, sump pump or related equipment, even if such overflow or discharge results from mechanical breakdown. This coverage does not apply to loss caused by flood, surface water, or water below the surface of the ground.",
-      "modifies": "Overrides the sewer or drain backup exclusion in the base form, Section I Exclusions, page 11, up to the scheduled limit. It does not cover flood or surface water."
+      "name": "Sewer Backup Endorsement",
+      "form": "EO-1025-0716",
+      "keywords": ["sewer", "backup", "back-up", "back up", "drain", "sump", "septic", "sewage", "water"],
+      "page": 71,
+      "verbatim": "You are insured against direct physical loss or damage to insured property caused by the sudden and accidental backing up or escape of water or sewage within your dwelling or detached private structures on your premises from a sewer, septic system, sump pit or drain. We do not insure loss or damage resulting from, contributed to or caused directly or indirectly: a) by flood, which shall mean the rising of, the breaking out or overflow of any interior body of water whether natural or man-made; b) by coastal flooding including but not limited to waves, tides, tidal waves, tsunami, storm surge, or seiche; c) by continuous or repeated seepage or leakage of water or sewage.",
+      "modifies": "Adds back coverage the base form excludes at Section I, Perils Excluded, item 17(b), page 19, for backing up or escape of water from a sewer or drain. It applies only when shown on the Declaration Page, is subject to that limit and deductible, and still does not cover flood or surface water."
     },
     {
-      "name": "Roof Surfacing Cosmetic Damage Exclusion",
-      "form": "HO 04 (roof surfacing cosmetic)",
-      "keywords": ["roof", "surfacing", "cosmetic", "marring", "pitting", "hail", "wind", "shingles", "appearance"],
-      "page": 1,
-      "verbatim": "We will not pay for cosmetic damage to roof surfacing caused by hail or wind. Cosmetic damage means marring, pitting or other superficial damage that alters the appearance of the roof surfacing, but does not result in the failure of the roof surfacing to perform its function of keeping out water over the remaining useful life of the roof surfacing.",
-      "modifies": "Adds an exclusion the base form does not contain. Where it is attached, cosmetic-only roof damage is excluded even when wind or hail is a covered peril."
+      "name": "Building By-Law Coverage Endorsement",
+      "form": "EO-0600-0113",
+      "keywords": ["by-law", "bylaw", "ordinance", "law", "zoning", "demolition", "code", "increased cost", "construction", "undamaged"],
+      "page": 38,
+      "verbatim": "this Policy, without increasing the amount of insurance and only as a result of direct damage caused by an insured peril, is extended to pay for: 1. loss resulting from the demolition of any undamaged portion of the specified building(s) or structure(s); or 2. the cost of demolishing, and clearing the site of, any undamaged portion of the specified building(s) or structure(s); or 3. any increase in the cost of repairing, replacing, construction or reconstructing the specified building(s) or structure(s) on the same site or on an adjacent site, of like height, floor area and style, and for like occupancy; arising from the enforcement of the minimum requirements of any by-law, regulation, ordinance, or law which a) regulates zoning or the demolition, repair or construction of damaged buildings or structures; and b) is in force at the time of such loss or damage.",
+      "modifies": "Adds back coverage the base form excludes at Section I, Perils Excluded, item 9, page 18. It pays the lesser of the amount shown on the Declaration Page or the minimum amount required to comply, and does not override the Basis of Claim Payment."
     },
     {
-      "name": "Roof Surfacing Payment Schedule (Actual Cash Value)",
-      "form": "HO 04 (roof ACV schedule)",
-      "keywords": ["roof", "actual cash value", "acv", "depreciation", "payment schedule", "age", "replacement cost"],
-      "page": 1,
-      "verbatim": "Notwithstanding any replacement cost provision in this policy, loss to roof surfacing caused by wind or hail will be settled at actual cash value, determined by applying the percentage shown in the Roof Surfacing Payment Schedule for the age and type of the roof surfacing at the time of loss.",
-      "modifies": "Overrides replacement cost loss settlement for the roof only. Read the attached schedule for the percentage that applies to the roof's age and type."
+      "name": "Restriction of Coverage - Roof Endorsement",
+      "form": "Section IV Restriction",
+      "keywords": ["roof", "roofing", "shingles", "windstorm", "wind", "hail", "ice damming", "restriction"],
+      "page": 37,
+      "verbatim": "If the Declaration Page shows that RESTRICTION OF COVERAGE - ROOF ENDORSEMENT applies to a specific building or buildings, no coverage applies for loss or damage caused directly or indirectly to the roof(s) and all roofing materials of said building(s) resulting from Windstorm, Hail or Ice Damming. Resulting damage to the interior of the building(s) and contents are also excluded from coverage.",
+      "modifies": "Removes coverage. When this restriction is on the Declaration Page, roof and roofing-material damage from windstorm, hail or ice damming, and the resulting interior and contents damage, are excluded entirely."
     },
     {
-      "name": "Ordinance or Law Increased Amount of Coverage",
-      "form": "HO 04 77",
-      "keywords": ["ordinance", "law", "code", "increased", "demolition", "upgrade"],
-      "page": 1,
-      "verbatim": "The Ordinance or Law Additional Coverage in the policy is increased to the percentage of the Coverage A limit of liability shown in the Schedule. This percentage replaces the 10% stated in the base policy.",
-      "modifies": "Replaces the 10% ordinance or law amount in the base form, Section I Additional Coverages, page 8, with the scheduled percentage."
+      "name": "Restriction of Coverage - Ice Damming",
+      "form": "Section IV Restriction",
+      "keywords": ["ice damming", "ice", "snow", "eaves", "roof", "restriction"],
+      "page": 37,
+      "verbatim": "If the Declaration Page shows that RESTRICTION OF COVERAGE - ICE DAMMING applies to a specific building or buildings, no coverage applies for loss or damage caused directly or indirectly to the specified building(s) as the result of accumulation of ice or snow on the roof or eaves trough, which enters the building(s) through the roof as a result of ice damming. Resulting damage to the interior of the building(s) and contents are also excluded from coverage.",
+      "modifies": "Removes coverage. When on the Declaration Page, ice-damming water entering through the roof, and the resulting interior and contents damage, are excluded."
     },
     {
-      "name": "Limited Fungi, Wet or Dry Rot, or Bacteria",
-      "form": "HO 04 26",
-      "keywords": ["mold", "fungi", "fungus", "rot", "bacteria", "remediation", "limit"],
-      "page": 1,
-      "verbatim": "We provide coverage, up to the aggregate sublimit shown in the Schedule, for loss caused by fungi, wet or dry rot, or bacteria, including the cost to remove the fungi, wet or dry rot, or bacteria from covered property and the cost to tear out and replace any part of the building needed to gain access to it, when the fungi, wet or dry rot, or bacteria results from a Peril Insured Against.",
-      "modifies": "Provides a capped amount of coverage related to the base form mold exclusion, Section I Exclusions, page 12. The Schedule sublimit is the most we pay."
-    },
-    {
-      "name": "Windstorm or Hail Percentage Deductible",
-      "form": "HO 03 12 (windstorm or hail deductible)",
-      "keywords": ["windstorm", "hail", "deductible", "percentage", "wind"],
-      "page": 1,
-      "verbatim": "A windstorm or hail deductible applies to each loss caused by windstorm or hail. The deductible is the percentage of the Coverage A limit of liability shown in the Declarations, and applies in place of the all other perils deductible for any loss caused by windstorm or hail.",
-      "modifies": "Replaces the flat all-other-perils deductible for wind or hail losses. The percentage is on the Declarations page."
+      "name": "Restriction of Coverage - Collapse",
+      "form": "Section IV Restriction",
+      "keywords": ["collapse", "restriction", "structural"],
+      "page": 37,
+      "verbatim": "If the Declaration Page shows that RESTRICTION OF COVERAGE - COLLAPSE applies to a specific building or buildings, no coverage applies for loss or damage caused directly or indirectly to said building(s) or the contents within resulting from collapse.",
+      "modifies": "Removes coverage. When on the Declaration Page, collapse loss to the building and its contents is excluded."
     }
   ]
 }

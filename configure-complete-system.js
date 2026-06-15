@@ -7,11 +7,11 @@ const BACKEND_URL = process.argv[2] || 'https://shopvoice-invan-backend.onrender
 function assistantConfig(systemPrompt) {
   return {
     name: 'PolicyVoice',
-    firstMessage: "PolicyVoice here. Tell me the insurer or policy form and what you need read, and I'll read the wording back to you.",
+    firstMessage: "Hi, this is PolicyVoice. I'm reading the homeowner's policy you've got on file. What can I read for you, a coverage, an exclusion, or an endorsement?",
     model: {
       provider: 'openai',
       model: 'gpt-4o',
-      temperature: 0.5,
+      temperature: 0.3,
       messages: [
         {
           role: 'system',
@@ -24,18 +24,21 @@ function assistantConfig(systemPrompt) {
           async: false,
           function: {
             name: 'lookup_coverage',
-            description: "Look up the policy clause that covers a topic and return its exact wording with form, section, and page. Use whenever the caller asks what a policy says about a coverage, an exclusion, a deductible, or a condition (e.g. mold, wind-driven rain, sewer backup, hurricane deductible, loss of use, ordinance or law, duties after loss). Read the returned wording word for word; never paraphrase.",
+            description: "Look up the policy clause that covers a topic in the SE Mutual Homeowner's Package and return its exact wording with section and page. Use whenever the caller asks what the policy says about a coverage, an exclusion, a deductible, or a condition (e.g. water or sewer backup, wind-driven rain, fungi or mould, by-law, additional living expense, deductible, requirements after loss). Read the returned wording word for word; never paraphrase.",
             parameters: {
               type: 'object',
               properties: {
                 topic: {
                   type: 'string',
-                  description: "The coverage topic to read the clause for (e.g. 'mold from covered water damage', 'wind-driven rain interior', 'sewer or drain backup', 'hurricane deductible', 'duties after loss')"
+                  description: "The coverage topic to read the clause for (e.g. 'water or sewer backup', 'wind-driven rain interior', 'fungi or mould', 'by-law increased cost', 'additional living expense', 'requirements after loss')"
                 }
               },
               required: ['topic']
             }
           },
+          messages: [
+            { type: 'request-start', content: 'One moment, pulling that clause.' }
+          ],
           server: {
             url: `${BACKEND_URL}/lookup-coverage`,
             timeoutSeconds: 45
@@ -46,18 +49,21 @@ function assistantConfig(systemPrompt) {
           async: false,
           function: {
             name: 'lookup_endorsement',
-            description: 'Look up an endorsement or add-on by topic and return its exact wording plus how it modifies the base policy form. Use whenever the caller mentions an endorsement, an add-on, or asks whether something is changed by an add-on (e.g. water back-up, roof surfacing cosmetic, ordinance or law increase, limited mold coverage). Read the wording word for word.',
+            description: 'Look up an endorsement or restriction by topic and return its exact wording plus how it changes the base policy. Use whenever the caller mentions an endorsement, an add-on, or a restriction of coverage (e.g. sewer backup, building by-law, roof restriction, ice damming, collapse). Read the wording word for word.',
             parameters: {
               type: 'object',
               properties: {
                 query: {
                   type: 'string',
-                  description: "The endorsement topic (e.g. 'water back-up sump overflow', 'roof surfacing cosmetic damage', 'ordinance or law increased amount', 'limited fungi mold')"
+                  description: "The endorsement or restriction topic (e.g. 'sewer backup', 'building by-law coverage', 'roof restriction windstorm hail', 'ice damming', 'collapse')"
                 }
               },
               required: ['query']
             }
           },
+          messages: [
+            { type: 'request-start', content: 'One moment, pulling that endorsement.' }
+          ],
           server: {
             url: `${BACKEND_URL}/lookup-endorsement`,
             timeoutSeconds: 45
@@ -68,18 +74,21 @@ function assistantConfig(systemPrompt) {
           async: false,
           function: {
             name: 'search_policy',
-            description: "Search the full policy form documents (HO-3 homeowners, businessowners BOP, flood policy) and return the matching sections word for word. Use for any 'read me the section on' or 'what does the form say about' question when a specific clause lookup did not fit.",
+            description: "Search the full SE Mutual Homeowner's Package sections (Section I property coverage, Section III statutory conditions, Section IV and V restrictions and endorsements) and return the matching wording word for word. Use for any 'read me the section on' or 'what does the policy say about' question when a specific clause lookup did not fit.",
             parameters: {
               type: 'object',
               properties: {
                 query: {
                   type: 'string',
-                  description: "Search query for policy form sections (e.g. 'loss settlement replacement cost', 'business income period of restoration', 'flood definition surface water')"
+                  description: "Search query for policy sections (e.g. 'additional living expense unfit for occupancy', 'tear out water damage', 'proof of loss requirements after loss')"
                 }
               },
               required: ['query']
             }
           },
+          messages: [
+            { type: 'request-start', content: 'One moment, searching the policy.' }
+          ],
           server: {
             url: `${BACKEND_URL}/search-policy`,
             timeoutSeconds: 45
