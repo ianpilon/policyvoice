@@ -30,7 +30,7 @@ function assistantConfig(systemPrompt) {
               properties: {
                 claim: {
                   type: 'string',
-                  description: "The claim the operator named — a claim number like 'GCC-2287', a claimant like 'the Calloway file', or a location like 'Naples'."
+                  description: "The claim the operator named — a claim number like 'SEM-2287', a claimant like 'the Calloway file', or a location like 'Fredericton'."
                 }
               },
               required: ['claim']
@@ -55,7 +55,7 @@ function assistantConfig(systemPrompt) {
               properties: {
                 region: {
                   type: 'string',
-                  description: "The area the operator named, e.g. 'Fort Myers', 'Naples', 'Tampa'."
+                  description: "The area the operator named, e.g. 'Moncton', 'Saint John', 'Halifax'."
                 }
               },
               required: ['region']
@@ -78,7 +78,7 @@ function assistantConfig(systemPrompt) {
             parameters: {
               type: 'object',
               properties: {
-                claim: { type: 'string', description: "Claim the task is for, if named (e.g. 'GCC-2287' or 'the Calloway file')." },
+                claim: { type: 'string', description: "Claim the task is for, if named (e.g. 'SEM-2287' or 'the Calloway file')." },
                 task: { type: 'string', description: "The thing to do (e.g. 'order an engineer report')." },
                 action: { type: 'string', description: "What kind of action (e.g. 'order', 'follow up', 'dispatch', 'note')." },
                 date: { type: 'string', description: "Any timing the operator gave (e.g. 'next Tuesday')." }

@@ -1,7 +1,7 @@
 # CLAUDE.md — project memory for PolicyVoice + Voice Operating System
 
 Two voice-AI demo products in one page for an independent insurance claims firm
-(stand-in customer: **Gulf Coast Claims**). Architecture and endpoints live in
+(stand-in customer: **SE Mutual**, the Atlantic Canada insurer whose policy is loaded). Architecture and endpoints live in
 `README.md`; this file is the "what you need to know to work on it" layer.
 
 This project was repurposed from a Snap-on auto-shop demo (ShopVoice + In-Van
@@ -51,9 +51,10 @@ so "word for word" is a design requirement, not a nice-to-have.
 
 - Accent is blue (`--accent: #2563EB`) to match the pitch deck. A few hardcoded
   `rgba(37,99,235,...)` values in the CSS mirror the accent; change them together.
-- Wordmark on both tabs: `Gulf Coast Claims` + the product name.
-- `assets/snap-on-logo.png` is a leftover from the clone, not referenced by the
-  page (the wordmark is text). Safe to delete; left in place for now.
+- Wordmark on both tabs is the SE Mutual logo image (`assets/se-mutual-logo.png`,
+  trimmed + made transparent via PIL from the source) next to the product name.
+- `assets/snap-on-logo.png` and `assets/gulf-coast-claims-logo.png` are leftover
+  images from earlier brands, not referenced by the page. Safe to delete.
 
 ## Live deployment
 

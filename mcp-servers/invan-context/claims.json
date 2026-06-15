@@ -1,49 +1,49 @@
 {
   "files": [
     {
-      "claim_no": "GCC-2287",
+      "claim_no": "SEM-2287",
       "claimant": "Calloway residence",
       "role": "homeowner",
-      "insurer": "Citizens",
-      "policy_form": "HO-3",
-      "loss_type": "wind and water loss from Hurricane Lina",
-      "loss_date": "October 9",
+      "insurer": "SE Mutual",
+      "policy_form": "SE Mutual Homeowner's Package (Comprehensive)",
+      "loss_type": "wind and water loss from post-tropical storm Odette",
+      "loss_date": "September 24",
       "status": "inspection scheduled today",
       "deadline": "sworn proof of loss",
       "deadline_days": 12,
       "adjuster": "Marcus Reed",
-      "location": "Cape Coral",
-      "note": "Homeowner is asking about mold from a sewer backup. Roof and interior both affected."
+      "location": "Moncton",
+      "note": "Homeowner is asking about water from a sewer backup. Roof and interior both affected."
     },
     {
-      "claim_no": "GCC-2291",
-      "claimant": "Brennan Marine Supply",
-      "role": "commercial",
-      "insurer": "Travelers",
-      "policy_form": "Businessowners (BOP)",
-      "loss_type": "wind loss and business interruption",
-      "loss_date": "October 9",
+      "claim_no": "SEM-2291",
+      "claimant": "Brennan farm",
+      "role": "farm",
+      "insurer": "SE Mutual",
+      "policy_form": "SE Mutual Homeowner's Package with Farm Buildings endorsement",
+      "loss_type": "wind loss to a barn roof",
+      "loss_date": "September 24",
       "status": "first inspection done, awaiting engineer report",
       "deadline": "reinspection",
       "deadline_days": 5,
       "adjuster": "Dana Ortiz",
-      "location": "Fort Myers",
-      "note": "Business income claim. Owner wants the period-of-restoration wording read back."
+      "location": "Sussex",
+      "note": "Barn roof and contents. Confirm the Farm Buildings endorsement is on the Declaration Page."
     },
     {
-      "claim_no": "GCC-2304",
+      "claim_no": "SEM-2304",
       "claimant": "Okafor residence",
       "role": "homeowner",
-      "insurer": "USAA",
-      "policy_form": "HO-3 with roof ACV endorsement",
-      "loss_type": "hail damage to roof",
-      "loss_date": "October 11",
+      "insurer": "SE Mutual",
+      "policy_form": "SE Mutual Homeowner's Package (Comprehensive)",
+      "loss_type": "wind damage to the roof",
+      "loss_date": "September 25",
       "status": "unassigned, needs an adjuster",
       "deadline": "first contact",
       "deadline_days": 2,
       "adjuster": "unassigned",
-      "location": "Naples",
-      "note": "Roof surfacing payment schedule endorsement is on the policy. Confirm cosmetic vs functional damage on site."
+      "location": "Fredericton",
+      "note": "A Restriction of Coverage Roof Endorsement may be on the policy. Confirm wind versus cosmetic roof damage on site."
     }
   ]
 }

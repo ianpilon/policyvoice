@@ -2,9 +2,9 @@
 
 **The policy library that talks back.** A forwardable voice-AI demo for independent insurance claims firms. An adjuster on a storm-damaged roof calls one line, asks a coverage question out loud, and hears the **exact policy wording read back word for word**, with the form and page it came from. Never a summary, never a coverage call. The page is built to explain itself in about 90 seconds without anyone presenting it.
 
-![Demo page — Gulf Coast Claims, the Voice Operating System tab](docs/screenshot.png)
+![Demo page — SE Mutual, PolicyVoice tab](docs/screenshot.png)
 
-Stand-in customer: **Gulf Coast Claims**, an independent claims firm. The page has two products on one backend:
+Stand-in customer: **SE Mutual**, a mutual property insurer in Atlantic Canada (New Brunswick) — the insurer whose policy PolicyVoice reads. The page has two products on one backend:
 
 1. **PolicyVoice** (default tab) — voice over insurance policy wording: coverage clauses, exclusions, and endorsements, read back verbatim for adjusters in the field.
 2. **Voice Operating System** (second tab) — voice over the firm's own operations data: claim-file briefings, the adjuster roster, and follow-up capture, for the owner running storm season from the road.

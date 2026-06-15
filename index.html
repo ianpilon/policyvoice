@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#0D0E10" />
-  <title>PolicyVoice — The policy library that talks back.</title>
+  <title>PolicyVoice: The policy library that talks back.</title>
   <meta name="description" content="PolicyVoice is a live demo of voice access to insurance policy wording: coverage clauses, exclusions, and endorsements, read back word for word for adjusters in the field." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -65,7 +65,7 @@
       text-transform: uppercase;
     }
     .wordmark .vc { color: var(--accent); }
-    .wordmark .brand-logo { height: 40px; width: auto; display: block; }
+    .wordmark .brand-logo { height: 52px; width: auto; display: block; }
     .header-tag {
       font-family: var(--mono); font-size: 11px;
       letter-spacing: 0.04em;
@@ -343,7 +343,7 @@
 
   <header>
     <div class="wrap header-inner">
-      <div class="wordmark" id="wordmark"><img class="brand-logo" src="assets/gulf-coast-claims-logo.png" alt="Gulf Coast Claims" /><span class="brand-name">Policy<span class="vc">Voice</span></span></div>
+      <div class="wordmark" id="wordmark"><img class="brand-logo" src="assets/se-mutual-logo.png" alt="SE Mutual Insurance" /><span class="brand-name">Policy<span class="vc">Voice</span></span></div>
       <div class="tabs" role="tablist">
         <button class="tab active" id="tab-shopvoice" role="tab" onclick="showView('shopvoice')">PolicyVoice</button>
         <button class="tab" id="tab-invan" role="tab" onclick="showView('invan')">Voice Operating System</button>
@@ -365,7 +365,7 @@
         <div class="hero-grid">
           <div>
             <h1>The policy library that talks back.</h1>
-            <p class="lede">An adjuster on a wet roof can't scroll a sixty-page policy. PolicyVoice reads the <strong>exact coverage wording, exclusions, and endorsements</strong> back — word for word, with the form and page it came from — spoken in seconds, then texted as a receipt.</p>
+            <p class="lede">An adjuster on a wet roof can't scroll a sixty-page policy. PolicyVoice reads the <strong>exact coverage wording, exclusions, and endorsements</strong> back, word for word, with the form and page it came from. Spoken in seconds, then texted as a receipt.</p>
 
             <div class="mic-row">
               <button id="sv-callBtn" class="mic-btn" onclick="toggleCall('shopvoice')">
@@ -495,7 +495,7 @@
         <div class="hero-grid">
           <div>
             <h1>Run storm season from the field, not a desk.</h1>
-            <p class="lede">When the storm hits, the firm runs from the road, not the office. The Voice Operating System answers from Gulf Coast Claims' own data, your <strong>open claim files, adjuster roster, and follow-ups</strong>, spoken aloud so you can keep moving.</p>
+            <p class="lede">When the storm hits, the claims team runs from the road, not the office. The Voice Operating System answers from SE Mutual's own data, your <strong>open claim files, adjuster roster, and follow-ups</strong>, spoken aloud so you can keep moving.</p>
 
             <div class="mic-row">
               <button id="iv-callBtn" class="mic-btn" onclick="toggleCall('invan')">
@@ -508,7 +508,7 @@
             <div class="try-label">Try asking</div>
             <div class="chips">
               <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"What's the story on my next inspection, the Calloway file?"</button>
-              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"Do I have an adjuster free near Fort Myers right now?"</button>
+              <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"Do I have an adjuster free near Moncton right now?"</button>
               <button class="chip" onclick="chipTap('invan')"><span class="q">Q</span>"Order an engineer report for the Calloway file, follow up next Tuesday."</button>
             </div>
           </div>
@@ -550,7 +550,7 @@
                 <div class="avatar">VO</div>
                 <div>
                   <div class="pb-name">Voice Operating System</div>
-                  <div class="pb-sub">Gulf Coast Claims data</div>
+                  <div class="pb-sub">SE Mutual claims data</div>
                 </div>
               </div>
               <div class="chat" id="iv-chatThread">
@@ -560,7 +560,7 @@
                 <div class="tray-label">Tap to send a text</div>
                 <div class="tray-chips" id="iv-trayChips">
                   <button class="tray-chip" onclick="sendSim('invan', 0)"><span class="q">Q</span>What's the story on my next inspection, the Calloway file?</button>
-                  <button class="tray-chip" onclick="sendSim('invan', 1)"><span class="q">Q</span>Do I have an adjuster free near Fort Myers?</button>
+                  <button class="tray-chip" onclick="sendSim('invan', 1)"><span class="q">Q</span>Do I have an adjuster free near Moncton?</button>
                   <button class="tray-chip" onclick="sendSim('invan', 2)"><span class="q">Q</span>Order an engineer report for the Calloway file, follow up Tuesday.</button>
                 </div>
               </div>
@@ -589,7 +589,7 @@
           <div class="fit-row">
             <div>
               <h3 class="fit-name"><span class="idx">B</span>Storm-season deployment desk</h3>
-              <p class="fit-why">When your team swells from 75 to 300 adjusters across three states, it answers who's available, who's overloaded, and where the open files are, without anyone stopping to tap through a dashboard.</p>
+              <p class="fit-why">When your team swells from 75 to 300 adjusters across the Maritimes, it answers who's available, who's overloaded, and where the open files are, without anyone stopping to tap through a dashboard.</p>
             </div>
             <div class="fit-owner">
               <span class="routes">Routes to</span>
@@ -630,7 +630,7 @@
     const APPS = {
       shopvoice: {
         key: "shopvoice",
-        wordmark: '<img class="brand-logo" src="assets/gulf-coast-claims-logo.png" alt="Gulf Coast Claims" /><span class="brand-name">Policy<span class="vc">Voice</span></span>',
+        wordmark: '<img class="brand-logo" src="assets/se-mutual-logo.png" alt="SE Mutual Insurance" /><span class="brand-name">Policy<span class="vc">Voice</span></span>',
         speaker: "PolicyVoice",
         userLabel: "Adjuster",
         assistantId: "aaadf407-d963-42d7-9af9-94a165998c80",
@@ -663,7 +663,7 @@
       },
       invan: {
         key: "invan",
-        wordmark: '<img class="brand-logo" src="assets/gulf-coast-claims-logo.png" alt="Gulf Coast Claims" /><span class="brand-name"><span class="vc">Voice</span> Operating System</span>',
+        wordmark: '<img class="brand-logo" src="assets/se-mutual-logo.png" alt="SE Mutual Insurance" /><span class="brand-name"><span class="vc">Voice</span> Operating System</span>',
         speaker: "Voice OS",
         userLabel: "Operator",
         assistantId: "6a919715-972e-4993-a145-3ec11c668a36",
@@ -681,16 +681,16 @@
         sims: [
           { q: "What's the story on my next inspection, the Calloway file?",
             lookup: "Claim files",
-            a: "Claim GCC-2287, Calloway residence in Cape Coral. Insurer Citizens, HO-3 form. Wind and water loss from Hurricane Lina, reported October 9th. Inspection scheduled today. Sworn proof of loss is due in 12 days. Assigned to Marcus Reed. Note: homeowner is asking about mold from a sewer backup.",
-            cite: "Source: Claim files · GCC-2287." },
-          { q: "Do I have an adjuster free near Fort Myers?",
+            a: "Claim SEM-2287, Calloway residence in Moncton. SE Mutual Homeowner's Package. Wind and water loss from post-tropical storm Odette, reported September 24th. Inspection scheduled today. Sworn proof of loss is due in 12 days. Assigned to Marcus Reed. Note: homeowner is asking about water from a sewer backup.",
+            cite: "Source: Claim files · SEM-2287." },
+          { q: "Do I have an adjuster free near Moncton?",
             lookup: "Adjuster roster",
-            a: "Two available in Fort Myers. Dana Ortiz, licensed in Florida, two open files. And Priya Shah, licensed in Florida and Georgia, one open file. Marcus Reed is in the area but he's full at thirty files.",
-            cite: "Source: Adjuster roster · Fort Myers region." },
+            a: "Two available near Moncton. Dana Ortiz, licensed in New Brunswick, two open files. And Priya Shah, licensed in New Brunswick and Nova Scotia, one open file. Marcus Reed is in the area but he's full at thirty files.",
+            cite: "Source: Adjuster roster · Moncton region." },
           { q: "Order an engineer report for the Calloway file, follow up Tuesday.",
             lookup: "Task capture",
-            a: "Logged: order an engineer report for claim GCC-2287, Calloway residence, follow up next Tuesday. Saved to the file's follow-ups.",
-            cite: "Source: Task capture · written to claim GCC-2287." }
+            a: "Logged: order an engineer report for claim SEM-2287, Calloway residence, follow up next Tuesday. Saved to the file's follow-ups.",
+            cite: "Source: Task capture · written to claim SEM-2287." }
         ],
         simBusy: false, simStarted: false
       }
@@ -725,7 +725,7 @@
     function ensureVapiReady() {
       if (window.VapiSDK) return Promise.resolve();
       return new Promise((resolve, reject) => {
-        const timer = setTimeout(() => reject(new Error("Voice SDK failed to load — check your connection")), 15000);
+        const timer = setTimeout(() => reject(new Error("Voice SDK failed to load. Check your connection")), 15000);
         window.addEventListener("vapi-sdk-ready", () => { clearTimeout(timer); resolve(); }, { once: true });
       });
     }
@@ -741,7 +741,7 @@
       });
       vapi.on("error", (err) => {
         console.error("Vapi error:", err);
-        if (activeApp) showCallError(activeApp, err?.message || err?.error?.message || "Call error — see console");
+        if (activeApp) showCallError(activeApp, err?.message || err?.error?.message || "Call error. See console");
         callState = "idle"; updateCallUI();
       });
       vapi.on("message", (msg) => {
@@ -773,7 +773,7 @@
       if (callState === "connecting") return;
 
       if (!app.assistantId || app.assistantId.includes("PLACEHOLDER")) {
-        showCallError(app, "Voice not wired up yet — run configure-invan-system.js, then paste the assistant ID into APPS.invan.assistantId.");
+        showCallError(app, "Voice not wired up yet. Run configure-invan-system.js, then paste the assistant ID into APPS.invan.assistantId.");
         return;
       }
 
@@ -816,14 +816,14 @@
         readout.classList.remove("live"); stateLabel.textContent = "standby";
       } else if (callState === "connecting") {
         setBtn(app, "mic-btn", MIC_SVG + "<span>Connecting…</span>");
-        status.textContent = "Asking for mic permission — first call can take ~30s while the backend wakes.";
+        status.textContent = "Asking for mic permission. First call can take ~30s while the backend wakes.";
         readout.classList.remove("live"); stateLabel.textContent = "connecting…";
       } else if (callState === "active") {
-        setBtn(app, "mic-btn live", '<span class="pulse"></span><span>Listening — tap to end</span>');
-        status.textContent = "Connected. Speak normally — headphones help with echo.";
+        setBtn(app, "mic-btn live", '<span class="pulse"></span><span>Listening, tap to end</span>');
+        status.textContent = "Connected. Speak normally, headphones help with echo.";
         readout.classList.add("live"); stateLabel.textContent = "live";
       } else if (callState === "ended") {
-        setBtn(app, "mic-btn", MIC_SVG + "<span>Call ended — tap to restart</span>");
+        setBtn(app, "mic-btn", MIC_SVG + "<span>Call ended, tap to restart</span>");
         status.textContent = "";
         readout.classList.remove("live"); stateLabel.textContent = "standby";
       }
